@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WithumOS 98 — FY26 Annual Review — Atish Naik</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #008080; font-family: 'Courier New', monospace; min-height: 100vh; }
+
+  .desk { background: #008080; padding: 16px; min-height: 100vh; }
+
+  /* DESKTOP ICONS */
+  .desktop-icons { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; }
+  .icon-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 4px; border: 2px solid transparent; min-width: 72px; }
+  .icon-item:hover { background: rgba(0,0,128,0.5); border: 2px dotted #fff; }
+  .icon-item:hover .icon-label { color: #fff; background: #000080; }
+  .icon-box { width: 36px; height: 36px; background: #c0c0c0; border: 2px solid; border-color: #fff #808080 #808080 #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .icon-label { font-size: 11px; color: #fff; text-align: center; word-break: break-word; max-width: 72px; line-height: 1.3; text-shadow: 1px 1px 0 #000; }
+
+  /* WINDOWS */
+  .win { background: #c0c0c0; border: 2px solid; border-color: #fff #808080 #808080 #fff; margin-bottom: 12px; }
+  .win-title { background: #000080; color: #fff; padding: 3px 6px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: bold; cursor: default; user-select: none; }
+  .win-title-left { display: flex; align-items: center; gap: 6px; }
+  .win-title-icon { width: 14px; height: 14px; background: #c0c0c0; border: 1px solid #808080; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #000; }
+  .win-btns { display: flex; gap: 2px; }
+  .win-btn { background: #c0c0c0; border: 2px solid; border-color: #fff #808080 #808080 #fff; width: 18px; height: 15px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #000; font-family: 'Courier New', monospace; font-weight: bold; line-height: 1; }
+  .win-btn:active { border-color: #808080 #fff #fff #808080; }
+  .win-menu { background: #c0c0c0; border-bottom: 2px solid #808080; padding: 2px 0; display: flex; gap: 0; }
+  .menu-item { padding: 2px 10px; font-size: 12px; color: #000; cursor: pointer; font-family: 'Courier New', monospace; }
+  .menu-item:hover { background: #000080; color: #fff; }
+  .win-body { padding: 10px; font-size: 12px; color: #000; }
+
+  /* FORM ELEMENTS */
+  .field { background: #fff; border: 2px solid; border-color: #808080 #fff #fff #808080; padding: 3px 6px; font-size: 12px; color: #000; font-family: 'Courier New', monospace; width: 100%; margin-bottom: 6px; }
+  .label98 { font-size: 12px; color: #000; margin-bottom: 3px; display: block; font-family: 'Courier New', monospace; }
+  .row98 { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+  .btn98 { background: #c0c0c0; border: 2px solid; border-color: #fff #808080 #808080 #fff; padding: 4px 14px; font-size: 12px; cursor: pointer; color: #000; font-family: 'Courier New', monospace; }
+  .btn98:active { border-color: #808080 #fff #fff #808080; }
+  .btn98:hover { background: #d4d0c8; }
+
+  /* PROGRESS BARS */
+  .progress-wrap { background: #fff; border: 2px solid; border-color: #808080 #fff #fff #808080; height: 18px; margin: 4px 0; overflow: hidden; }
+  .progress-fill { height: 100%; background: #000080; width: 0; transition: width 1.4s ease; }
+  .progress-striped { height: 100%; background: repeating-linear-gradient(90deg,#000080 0px,#000080 8px,#1084d0 8px,#1084d0 16px); width: 0; transition: width 1.4s ease; }
+  .progress-red { height: 100%; background: #ff0000; width: 0; transition: width 1.4s ease; }
+
+  /* ICON GRID */
+  .icon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; }
+  .icon-grid .icon-item { min-width: unset; }
+  .icon-grid .icon-label { color: #000; text-shadow: none; font-size: 11px; }
+  .icon-grid .icon-item:hover .icon-label { color: #fff; }
+  .proj-tech { font-size: 10px; color: #666; text-align: center; font-family: 'Courier New', monospace; margin-top: 2px; }
+  .icon-grid .icon-item:hover .proj-tech { color: #ccc; }
+
+  /* LISTS */
+  .list98 { background: #fff; border: 2px solid; border-color: #808080 #fff #fff #808080; font-size: 12px; color: #000; font-family: 'Courier New', monospace; }
+  .list-item { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; display: flex; gap: 10px; align-items: flex-start; cursor: default; }
+  .list-item:last-child { border-bottom: none; }
+  .list-item:hover { background: #000080; color: #fff; }
+  .list-item:hover .li-sub { color: #b0c4de; }
+  .list-item:hover .proj-tech { color: #b0c4de; }
+  .li-icon { flex-shrink: 0; font-size: 16px; padding-top: 2px; }
+  .li-body { flex: 1; }
+  .li-name { font-weight: bold; font-size: 12px; margin-bottom: 2px; }
+  .li-sub { font-size: 11px; color: #555; line-height: 1.5; }
+
+  /* ERROR DIALOGS */
+  .error-dialog { background: #c0c0c0; border: 2px solid; border-color: #fff #808080 #808080 #fff; margin-bottom: 12px; }
+  .error-body { padding: 14px; display: flex; gap: 12px; align-items: flex-start; }
+  .error-icon { font-size: 28px; flex-shrink: 0; }
+  .error-text { font-size: 12px; color: #000; line-height: 1.7; font-family: 'Courier New', monospace; }
+  .error-btns { border-top: 2px solid #808080; padding: 10px; display: flex; gap: 8px; justify-content: center; }
+
+  /* TABS */
+  .tab-row { display: flex; gap: 0; border-bottom: 2px solid #808080; margin-bottom: 10px; }
+  .tab { background: #c0c0c0; border: 2px solid; border-color: #fff #808080 transparent #fff; padding: 3px 12px; font-size: 12px; cursor: pointer; color: #000; margin-bottom: -2px; font-family: 'Courier New', monospace; }
+  .tab.active { font-weight: bold; border-bottom-color: #c0c0c0; }
+
+  /* STATUS BAR */
+  .status-bar { background: #c0c0c0; border-top: 2px solid #808080; padding: 3px 6px; font-size: 11px; color: #000; display: flex; gap: 4px; flex-wrap: wrap; margin: 8px -10px -10px; }
+  .status-panel { border: 2px solid; border-color: #808080 #fff #fff #808080; padding: 1px 8px; font-size: 11px; color: #000; font-family: 'Courier New', monospace; }
+
+  /* TASKBAR */
+  .taskbar { background: #c0c0c0; border-top: 2px solid #fff; padding: 4px 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .start-btn { background: #c0c0c0; border: 2px solid; border-color: #fff #808080 #808080 #fff; padding: 4px 12px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; color: #000; font-family: 'Courier New', monospace; }
+  .start-btn:active { border-color: #808080 #fff #fff #808080; }
+  .taskbar-btn { background: #c0c0c0; border: 2px solid; border-color: #808080 #fff #fff #808080; padding: 2px 10px; font-size: 11px; color: #000; cursor: pointer; font-family: 'Courier New', monospace; white-space: nowrap; }
+  .taskbar-btn:hover { background: #d4d0c8; }
+  .taskbar-clock { margin-left: auto; background: #c0c0c0; border: 2px solid; border-color: #808080 #fff #fff #808080; padding: 3px 10px; font-size: 12px; color: #000; font-family: 'Courier New', monospace; }
+
+  /* SKILL ROW */
+  .skill-row { margin-bottom: 8px; }
+  .skill-header { display: flex; justify-content: space-between; font-size: 12px; color: #000; font-family: 'Courier New', monospace; margin-bottom: 3px; }
+
+  /* BSOD TEASER */
+  .bsod { background: #000080; color: #fff; padding: 20px 24px; font-family: 'Courier New', monospace; margin-bottom: 12px; }
+  .bsod h3 { font-size: 14px; font-weight: bold; margin-bottom: 14px; text-transform: uppercase; }
+  .bsod p { font-size: 12px; line-height: 1.8; margin-bottom: 10px; }
+  .bsod .bsod-item { font-size: 12px; margin-bottom: 6px; }
+  .bsod .blink { animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .win { display: none; }
+  .error-dialog { display: none; }
+  .bsod { display: none; }
+  .win.open { display: block; }
+  .error-dialog.open { display: block; }
+  .bsod.open { display: block; }
+  .taskbar-btn.active { border-color: #808080 #fff #fff #808080; background: #b0b0b0; }
+
+  @media (max-width: 600px) {
+    .icon-grid { grid-template-columns: repeat(2, 1fr); }
+    .desktop-icons { gap: 10px; }
+    .taskbar-btn { display: none; }
+    .row98 { flex-direction: column; align-items: stretch; }
+  }
+
+  /* ===== BOOT SCREENS ===== */
+  #screen-boot, #screen-login, #screen-desktop { position:fixed; top:0; left:0; width:100%; height:100%; z-index:9999; }
+  #screen-desktop { position:relative; z-index:0; display:none; }
+
+  /* BOOT SCREEN */
+  #screen-boot { background:#000; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+  .boot-logo { color:#fff; font-size:28px; font-weight:bold; font-family:'Courier New',monospace; letter-spacing:4px; margin-bottom:6px; }
+  .boot-logo span { color:#1084d0; }
+  .boot-version { color:#aaa; font-size:12px; font-family:'Courier New',monospace; margin-bottom:40px; }
+  .boot-lines { width:360px; font-size:11px; color:#aaa; font-family:'Courier New',monospace; line-height:1.8; min-height:120px; }
+  .boot-line { opacity:0; }
+  .boot-line.show { opacity:1; }
+  .boot-bar-wrap { width:360px; margin-top:20px; background:#222; border:1px solid #555; height:16px; overflow:hidden; }
+  .boot-bar-fill { height:100%; background:repeating-linear-gradient(90deg,#1084d0 0,#1084d0 8px,#000080 8px,#000080 16px); width:0; transition:width 0.3s ease; }
+  .boot-bar-label { color:#aaa; font-size:11px; font-family:'Courier New',monospace; margin-top:6px; text-align:center; width:360px; }
+
+  /* LOGIN SCREEN */
+  #screen-login { background:#008080; display:none; justify-content:center; align-items:center; flex-direction:column; }
+  .login-box { background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; width:340px; }
+  .login-title { background:#000080; color:#fff; padding:4px 8px; font-size:13px; font-weight:bold; font-family:'Courier New',monospace; display:flex; align-items:center; gap:6px; }
+  .login-title-icon { width:14px; height:14px; background:#c0c0c0; border:1px solid #808080; display:flex; align-items:center; justify-content:center; font-size:9px; color:#000; }
+  .login-body { padding:20px; }
+  .login-avatar { width:64px; height:64px; background:#000080; border:2px solid; border-color:#808080 #fff #fff #808080; display:flex; align-items:center; justify-content:center; font-size:28px; margin:0 auto 16px; }
+  .login-username { text-align:center; font-size:14px; font-weight:bold; font-family:'Courier New',monospace; color:#000; margin-bottom:4px; }
+  .login-role { text-align:center; font-size:11px; color:#555; font-family:'Courier New',monospace; margin-bottom:18px; }
+  .login-field-label { font-size:12px; color:#000; font-family:'Courier New',monospace; margin-bottom:4px; }
+  .login-field { background:#fff; border:2px solid; border-color:#808080 #fff #fff #808080; padding:4px 8px; font-size:12px; width:100%; font-family:'Courier New',monospace; color:#000; margin-bottom:14px; letter-spacing:4px; }
+  .login-btns { display:flex; gap:8px; justify-content:center; }
+  .login-btn { background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; padding:4px 20px; font-size:12px; cursor:pointer; color:#000; font-family:'Courier New',monospace; min-width:80px; }
+  .login-btn:active { border-color:#808080 #fff #fff #808080; }
+  .login-btn:hover { background:#d4d0c8; }
+  .login-hint { text-align:center; font-size:10px; color:#808080; font-family:'Courier New',monospace; margin-top:12px; font-style:italic; }
+  .login-warning { color:#cc0000; font-size:11px; font-family:'Courier New',monospace; text-align:center; margin-top:8px; min-height:16px; }
+
+  /* DESKTOP FADE IN */
+  @keyframes desktopFadeIn { from{opacity:0} to{opacity:1} }
+  .desk-fadein { animation: desktopFadeIn 0.8s ease forwards; }
+</style>
+</head>
+<body>
+
+  <!-- BOOT SCREEN -->
+  <div id="screen-boot">
+    <div class="boot-logo">With<span>um</span>OS 98</div>
+    <div class="boot-version">Version 4.10.2222 A &nbsp;&bull;&nbsp; Lead Consultant Edition</div>
+    <div class="boot-lines" id="boot-lines"></div>
+    <div class="boot-bar-wrap"><div class="boot-bar-fill" id="boot-bar"></div></div>
+    <div class="boot-bar-label" id="boot-bar-label">Initialising...</div>
+  </div>
+
+  <!-- LOGIN SCREEN -->
+  <div id="screen-login">
+    <div class="login-box">
+      <div class="login-title"><div class="login-title-icon">&#128274;</div>WithumOS 98 &mdash; Welcome</div>
+      <div class="login-body">
+        <div class="login-avatar">&#128100;</div>
+        <div class="login-username">Atish Naik</div>
+        <div class="login-role">Lead Consultant &bull; Withum Digital &bull; India Dev</div>
+        <div class="login-field-label">Password:</div>
+        <input class="login-field" id="login-password" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" maxlength="20" />
+        <div class="login-btns">
+          <button class="login-btn" onclick="doLogin()">OK</button>
+          <button class="login-btn" onclick="doLogin()">Cancel</button>
+          <button class="login-btn" onclick="showShutdown()">Shut Down</button>
+        </div>
+        <div class="login-hint">Hint: it doesn't matter what you type. Nobody reads passwords anyway.</div>
+        <div class="login-warning" id="login-warning"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESKTOP (hidden until login) -->
+  <div id="screen-desktop">
+
+<div class="desk">
+
+  <!-- DESKTOP ICONS -->
+  <div style="font-size:10px;color:#fff;font-family:'Courier New',monospace;margin-bottom:6px;text-shadow:1px 1px 0 #000">&#128161; Double-click an icon to open it</div>
+  <div class="desktop-icons">
+    <div class="icon-item" ondblclick="openWin('win-review','tb-review')"><div class="icon-box">&#128203;</div><div class="icon-label">FY26_Review.exe</div></div>
+    <div class="icon-item" ondblclick="openWin('win-achievements','tb-achievements')"><div class="icon-box">&#128193;</div><div class="icon-label">My Achievements</div></div>
+    <div class="icon-item" ondblclick="openWin('win-projects','tb-projects')"><div class="icon-box">&#128190;</div><div class="icon-label">Projects (4)</div></div>
+    <div class="icon-item" ondblclick="openWin('win-skills','tb-skills')"><div class="icon-box">&#128202;</div><div class="icon-label">Skills.xls</div></div>
+    <div class="icon-item" ondblclick="openWin('win-synergy','tb-synergy')" title="Not required. See Team_Impact.exe instead."><div class="icon-box">&#128465;</div><div class="icon-label">CorporateJargon.dll</div><div style="font-size:9px;color:#fff;text-shadow:1px 1px 0 #000;text-align:center;max-width:72px;line-height:1.2;font-family:'Courier New',monospace">See Team_Impact.exe</div></div>
+    <div class="icon-item" ondblclick="openWin('win-team','tb-team')"><div class="icon-box">&#128101;</div><div class="icon-label">Team_Impact.exe</div></div>
+    <div class="icon-item" ondblclick="openWin('win-poccerror','tb-poc')"><div class="icon-box">&#9888;</div><div class="icon-label">SupplyChain POC~</div></div>
+    <div class="icon-item" ondblclick="openWin('win-goals','tb-goals')"><div class="icon-box">&#128197;</div><div class="icon-label">FY27_Goals.lnk</div></div>
+    <div class="icon-item" ondblclick="openWin('win-bsod','tb-bsod')"><div class="icon-box">&#128218;</div><div class="icon-label">BSOD_Teaser.scr</div></div>
+    <div class="icon-item" ondblclick="openWin('win-recycle','tb-recycle')"><div class="icon-box">&#128465;</div><div class="icon-label">Recycle Bin<br><span style="font-size:9px">(15 items)</span></div></div>
+  </div>
+
+  <!-- MAIN PROPERTIES WINDOW -->
+  <div class="win" id="win-review">
+    <div class="win-title">
+      <div class="win-title-left">
+        <div class="win-title-icon">&#128203;</div>
+        FY26_AnnualReview.exe &mdash; Atish Naik, Lead Consultant
+      </div>
+      <div class="win-btns">
+        <div class="win-btn">_</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="win-menu">
+      <span class="menu-item"><u>F</u>ile</span>
+      <span class="menu-item"><u>E</u>dit</span>
+      <span class="menu-item"><u>V</u>iew</span>
+      <span class="menu-item"><u>H</u>elp</span>
+    </div>
+    <div class="win-body">
+      <div class="tab-row">
+        <div class="tab active">Character Info</div>
+        <div class="tab">System Props</div>
+        <div class="tab">About</div>
+      </div>
+      <div class="row98">
+        <span class="label98" style="min-width:130px">Name:</span>
+        <div class="field" style="width:auto;flex:1">Atish Naik</div>
+      </div>
+      <div class="row98">
+        <span class="label98" style="min-width:130px">OS Version:</span>
+        <div class="field" style="width:auto;flex:1">WithumOS 98 SE &mdash; Lead Consultant Edition</div>
+      </div>
+      <div class="row98">
+        <span class="label98" style="min-width:130px">Department:</span>
+        <div class="field" style="width:auto;flex:1">Withum Digital &mdash; India Dev Team</div>
+      </div>
+      <div class="row98">
+        <span class="label98" style="min-width:130px">Performance Year:</span>
+        <div class="field" style="width:auto;flex:1">FY2026 (May 1, 2025 &mdash; April 30, 2026)</div>
+      </div>
+      <div class="row98">
+        <span class="label98" style="min-width:130px">Registered to:</span>
+        <div class="field" style="width:auto;flex:1">Withum Corporation &mdash; Product ID: LEAD-CONSULT-2026</div>
+      </div>
+      <div style="margin-top:10px">
+        <span class="label98">System XP (Career Progress):</span>
+        <div class="progress-wrap"><div class="progress-fill" data-w="88" style="width:0%"></div></div>
+        <div style="font-size:11px;color:#000;margin-top:3px">10,500 / 12,000 XP &mdash; Next rank: [CLASSIFIED] &mdash; details pending further notice</div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:6px;justify-content:flex-end">
+        <button class="btn98" style="min-width:80px">OK</button>
+        <button class="btn98" style="min-width:80px">Cancel</button>
+        <button class="btn98" style="min-width:80px">Apply</button>
+      </div>
+      <div class="status-bar">
+        <span class="status-panel">4 projects shipped</span>
+        <span class="status-panel">12,000 XP capacity</span>
+        <span class="status-panel">0 fatal errors (this year)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MY ACHIEVEMENTS -->
+  <div class="win" id="win-achievements">
+    <div class="win-title">
+      <div class="win-title-left">
+        <div class="win-title-icon">&#128193;</div>
+        My Achievements &mdash; FY26
+      </div>
+      <div class="win-btns">
+        <div class="win-btn">_</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="win-menu">
+      <span class="menu-item"><u>F</u>ile</span>
+      <span class="menu-item"><u>E</u>dit</span>
+      <span class="menu-item"><u>V</u>iew</span>
+      <span class="menu-item">Favo<u>r</u>ites</span>
+    </div>
+    <div class="win-body">
+      <div style="font-size:11px;color:#000;margin-bottom:8px">C:\Withum\FY26\Achievements\ &mdash; 7 objects</div>
+      <div class="list98">
+        <div class="list-item">
+          <div class="li-icon">&#9733;</div>
+          <div class="li-body">
+            <div class="li-name">LeadConsultant_Ascension.exe [RUNNING]</div>
+            <div class="li-sub">Successfully transitioned into Lead Consultant role. Shifted team from task execution to proactive problem-solving. Mentored via first-principles. Management noticed after Q2. +3,500 XP</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#128218;</div>
+          <div class="li-body">
+            <div class="li-name">AI_Blog_Part1.doc &amp; AI_Blog_Part2.doc [PUBLISHED]</div>
+            <div class="li-sub">"From Legacy to Leading Edge: Calculating the ROI of AI-Powered Application Modernization." Two-part series for C-level audiences. Written voluntarily. Withum's thought leadership: elevated. +2,500 XP</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#129504;</div>
+          <div class="li-body">
+            <div class="li-name">PromptEngineering_Course.ppt (47 slides) [DELIVERED]</div>
+            <div class="li-sub">Delivered to India Dev team. LLMs officially demoted from "magic boxes" to "predictable engineered systems." The team has not recovered. In a good way. +2,500 XP</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#128737;</div>
+          <div class="li-body">
+            <div class="li-name">DAS_Champion.exe [RUNNING SINCE Q1]</div>
+            <div class="li-sub">Owns procedures, risk publishing microservice, reference copy, and checklists — built on Angular, NestJS, Python, and Java. Nobody asked him to own all of them. He did it anyway. Everything is documented. Expectations: realistic. +2,000 XP</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#128101;</div>
+          <div class="li-body">
+            <div class="li-name">Empower_TechnicalMentor.exe [RUNNING WEEKLY]</div>
+            <div class="li-sub">Weekly connect sessions with new and returning Empowers. Architecture explained patiently. Roadblocks unblocked. Previous cohort given leadership platform. New cohort: now dangerous (positively). +2,000 XP</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#128203;</div>
+          <div class="li-body">
+            <div class="li-name">Interview_Toolkit.html [SHIPPED &amp; LIVE]</div>
+            <div class="li-sub">Built for Digital Empower 2026-27 recruitment drive. Deployed and used live May 12-13. URL: atishnaik8805.github.io/interview-toolkit &mdash; Still running. +1,500 XP</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#9888;</div>
+          <div class="li-body">
+            <div class="li-name">SupplyChain_POC.idea~ [NOT EXECUTED &mdash; QUEUED FY27]</div>
+            <div class="li-sub">NLSQL concept independently ideated. Problem structured. Architecture mapped. Executive deck built. DAS.exe demanded priority. File exists. Code does not. Will retry FY27. No XP awarded.</div>
+          </div>
+        </div>
+      </div>
+      <div class="status-bar">
+        <span class="status-panel">7 items</span>
+        <span class="status-panel">6 completed</span>
+        <span class="status-panel">1 file queued for FY27</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="win" id="win-projects">
+    <div class="win-title">
+      <div class="win-title-left">
+        <div class="win-title-icon">&#128190;</div>
+        Projects &mdash; C:\WithumDigital\FY26\Delivered\
+      </div>
+      <div class="win-btns">
+        <div class="win-btn">_</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="win-body">
+      <div class="icon-grid">
+        <div class="icon-item">
+          <div class="icon-box">&#128193;</div>
+          <div class="icon-label">DAS_Core Platform</div>
+          <div class="proj-tech">Angular · NestJS · Python · Java</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-box">&#128202;</div>
+          <div class="icon-label">PO_Portfolio Dashboard</div>
+          <div class="proj-tech">Microsoft Fabric</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-box">&#129302;</div>
+          <div class="icon-label">QA_Gen Tool.exe</div>
+          <div class="proj-tech">Python · Jira API · AI</div>
+        </div>
+        <div class="icon-item">
+          <div class="icon-box">&#127919;</div>
+          <div class="icon-label">Interview Toolkit.html</div>
+          <div class="proj-tech">JS + GitHub Pages</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#000;padding:0 10px 10px;font-family:'Courier New'">
+        4 object(s) selected. Size: 1 fiscal year. Collaborators: Nandini, Saurabh, Abhishek, Nisarg (PO Dashboard).
+      </div>
+      <div class="status-bar">
+        <span class="status-panel">4 items</span>
+        <span class="status-panel">All SHIPPED</span>
+        <span class="status-panel">0 rollbacks</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="win" id="win-skills">
+    <div class="win-title">
+      <div class="win-title-left">
+        <div class="win-title-icon">&#128202;</div>
+        Skills.xls &mdash; Attribute Profiler v2.0
+      </div>
+      <div class="win-btns">
+        <div class="win-btn">_</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="win-menu">
+      <span class="menu-item"><u>F</u>ile</span>
+      <span class="menu-item"><u>E</u>dit</span>
+      <span class="menu-item"><u>T</u>ools</span>
+      <span class="menu-item">Recalcu<u>l</u>ate</span>
+    </div>
+    <div class="win-body">
+      <div style="font-size:11px;color:#000;margin-bottom:10px">C:\Skills\FY26_attributes.xls &mdash; Scanning attributes...</div>
+
+      <div class="skill-row">
+        <div class="skill-header"><span>AI / LLM Architecture</span><span>88% &mdash; Advanced</span></div>
+        <div class="progress-wrap"><div class="progress-striped" data-w="88" style="width:0%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>Prompt Engineering</span><span>90% &mdash; Expert</span></div>
+        <div class="progress-wrap"><div class="progress-striped" data-w="90" style="width:0%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>Full-Stack Engineering</span><span>88% &mdash; Expert</span></div>
+        <div class="progress-wrap"><div class="progress-striped" data-w="88" style="width:0%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>System Design</span><span>85% &mdash; Advanced</span></div>
+        <div class="progress-wrap"><div class="progress-striped" data-w="85" style="width:0%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>Technical Mentorship</span><span>82% &mdash; Advanced</span></div>
+        <div class="progress-wrap"><div class="progress-striped" data-w="82" style="width:0%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>Cloud Architecture (Azure)</span><span>80% &mdash; Advanced</span></div>
+        <div class="progress-wrap"><div class="progress-striped" data-w="80" style="width:0%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>Surviving Back-to-Back DAS Calls</span><span>99% &mdash; Legendary</span></div>
+        <div class="progress-wrap"><div class="progress-striped" data-w="99" style="width:0%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>CorporateJargon.dll</span><span>ERROR &mdash; NOT FOUND</span></div>
+        <div class="progress-wrap"><div class="progress-red" data-w="3" style="width:0%"></div></div>
+      </div>
+
+      <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
+        <button class="btn98">Recalculate</button>
+        <button class="btn98">Sort A-Z</button>
+        <button class="btn98">Export CSV</button>
+        <button class="btn98">Save As...</button>
+      </div>
+      <div class="status-bar">
+        <span class="status-panel">8 attributes</span>
+        <span class="status-panel">7 loaded successfully</span>
+        <span class="status-panel">1 DLL error</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYNERGY ERROR -->
+  <div class="error-dialog" id="win-synergy">
+    <div class="win-title" style="background:#808080">
+      <div class="win-title-left">
+        <div class="win-title-icon" style="background:#c0c0c0">&#9888;</div>
+        CorporateJargon.dll &mdash; Application Error
+      </div>
+      <div class="win-btns">
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="error-body">
+      <div class="error-icon">&#10060;</div>
+      <div class="error-text">
+        <strong>CORPORATEJARGON.DLL has caused a general protection fault in module REVIEW.EXE.</strong><br><br>
+        The instruction at 0x00415C92 attempted to load "synergy" into memory.<br>
+        Memory address 0x00000000 (NULL). The buzzword could not be located.<br><br>
+        NOTE: This error is about <strong>jargon</strong>, not teamwork.<br>
+        For actual team collaboration, see: <strong>TEAM_IMPACT.EXE</strong><br>
+        which has been running successfully — and with actual humans — since Q1.
+      </div>
+    </div>
+    <div class="error-btns">
+      <button class="btn98" style="min-width:80px" onclick="closeWin(this)">Close</button>
+      <button class="btn98" style="min-width:80px">Ignore</button>
+      <button class="btn98" style="min-width:80px">Details...</button>
+    </div>
+  </div>
+
+  <!-- SUPPLY CHAIN ERROR -->
+  <div class="error-dialog" id="win-poccerror">
+    <div class="win-title" style="background:#808080">
+      <div class="win-title-left">
+        <div class="win-title-icon" style="background:#c0c0c0">&#9888;</div>
+        SupplyChain_POC.exe &mdash; Runtime Error
+      </div>
+      <div class="win-btns">
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="error-body">
+      <div class="error-icon">&#128736;</div>
+      <div class="error-text">
+        <strong>SUPPLYCHAINPOC.EXE failed to launch in FY26.</strong><br><br>
+        Required dependency: <strong>TIME.dll</strong> &mdash; not found on this system.<br>
+        Required dependency: <strong>DAS_BANDWIDTH.dll</strong> &mdash; in use by another process.<br>
+        Required dependency: <strong>PRIORITIES.exe</strong> &mdash; overriding all requests.<br><br>
+        Concept architecture saved to: <strong>C:\FY27\Backlog\NLSQL_POC\</strong><br>
+        Executive deck preserved. Problem structure intact. Blueprint documented.<br>
+        This executable will retry in FY27. The idea is good. The timing was not.
+      </div>
+    </div>
+    <div class="error-btns">
+      <button class="btn98" style="min-width:100px" onclick="closeWin(this)">OK (Retry FY27)</button>
+      <button class="btn98">Cancel</button>
+      <button class="btn98">Send Error Report</button>
+    </div>
+  </div>
+
+  <!-- TEAM WINDOW -->
+  <div class="win" id="win-team">
+    <div class="win-title">
+      <div class="win-title-left">
+        <div class="win-title-icon">&#128101;</div>
+        Team_Impact.exe &mdash; Party Members &amp; Contributions
+      </div>
+      <div class="win-btns">
+        <div class="win-btn">_</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="win-body">
+      <div class="list98">
+        <div class="list-item">
+          <div class="li-icon">&#127891;</div>
+          <div class="li-body">
+            <div class="li-name">TechnicalMentor.role [ACTIVE]</div>
+            <div class="li-sub">Weekly connect sessions with new + returning Empowers. Architectural thinking. First-principles guidance. Previous cohort given leadership stage. Career coaching: 1-2 proteges.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#129302;</div>
+          <div class="li-body">
+            <div class="li-name">AI_Adoption_Champion.bat [RUNNING CONTINUOUSLY]</div>
+            <div class="li-sub">Prompt Engineering training. AI use cases at Dev Catchup calls. DAS AI Adoption sessions. Spec Driven Development rollout. India Digital AI learning strategy: built and deployed.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#127775;</div>
+          <div class="li-body">
+            <div class="li-name">PO_Dashboard_Collab.exe [SHIPPED]</div>
+            <div class="li-sub">Co-architected with Nandini, Saurabh, Abhishek, Nisarg. Legacy manual workflows replaced. Real-time risk management delivered. Digital debt reduced. All parties still on speaking terms.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#127919;</div>
+          <div class="li-body">
+            <div class="li-name">Recruitment_Drive.exe [COMPLETED May 12-13]</div>
+            <div class="li-sub">Built Interview Toolkit for Digital Empower 2026-27 drive. Participated in both days. Structured evaluation. The guild expands. atishnaik8805.github.io/interview-toolkit</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#128203;</div>
+          <div class="li-body">
+            <div class="li-name">GHS_Handover.zip [TRANSFERRED]</div>
+            <div class="li-sub">Technical oversight for GHS project transition to Empower team. Smooth knowledge transfer. Both teams unblocked. Relationship: intact.</div>
+          </div>
+        </div>
+      </div>
+      <div class="status-bar">
+        <span class="status-panel">5 contributions</span>
+        <span class="status-panel">All completed or ongoing</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FY27 GOALS -->
+  <div class="win" id="win-goals">
+    <div class="win-title">
+      <div class="win-title-left">
+        <div class="win-title-icon">&#128197;</div>
+        FY27_Goals.lnk &mdash; Scheduled Tasks / Next Year Queue
+      </div>
+      <div class="win-btns">
+        <div class="win-btn">_</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="win-menu">
+      <span class="menu-item"><u>F</u>ile</span>
+      <span class="menu-item">Schedu<u>l</u>er</span>
+      <span class="menu-item"><u>R</u>un All</span>
+    </div>
+    <div class="win-body">
+      <div style="font-size:11px;color:#000;margin-bottom:8px">C:\FY27\Goals\ &mdash; 4 tasks scheduled</div>
+      <div class="list98">
+        <div class="list-item">
+          <div class="li-icon">&#9654;</div>
+          <div class="li-body">
+            <div class="li-name">NLSQL_Prototype.exe [QUEUED &mdash; HIGH PRIORITY]</div>
+            <div class="li-sub">Build the Supply Chain AI POC that FY26 couldn't. NL parsing + SQL generation engine + DB connectivity layer. ETA: Q2 FY27. The architecture is already mapped. Just needs TIME.dll.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#9654;</div>
+          <div class="li-body">
+            <div class="li-name">AI_DevRoadmap_India.doc [QUEUED &mdash; HIGH PRIORITY]</div>
+            <div class="li-sub">Formalise AI learning paths and Prompt Engineering foundations into a structured, actionable guide for India Dev. ETA: Q1-Q2 FY27. A map for the mapless developer.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#9654;</div>
+          <div class="li-body">
+            <div class="li-name">Empower_Independence.exe [QUEUED &mdash; ONGOING]</div>
+            <div class="li-sub">Evolve mentorship to delegation. Empowers own complex problems. Empowers lead technical discussions. Empowers mentor next batch. The cycle: complete. ETA: FY27 ongoing.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="li-icon">&#9654;</div>
+          <div class="li-body">
+            <div class="li-name">1800_BillableHours.bat [SCHEDULED &mdash; DAILY CRON]</div>
+            <div class="li-sub">Run every working day. DAS contributions maximised. Development, documentation, AI integration, R&amp;D. No exceptions. ETA: FY27 year end. Status: mathematically achievable.</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap">
+        <button class="btn98">Run All Tasks</button>
+        <button class="btn98">Schedule...</button>
+        <button class="btn98">Cancel All</button>
+      </div>
+      <div class="status-bar">
+        <span class="status-panel">4 tasks</span>
+        <span class="status-panel">0 running</span>
+        <span class="status-panel">4 queued for FY27</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NICHE & FIRM INITIATIVES -->
+  <div class="win" id="win-niche">
+    <div class="win-title">
+      <div class="win-title-left"><div class="win-title-icon">&#128161;</div>Niche_Initiatives.exe &mdash; Firm &amp; Innovation Contributions</div>
+      <div class="win-btns"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
+    </div>
+    <div class="win-menu"><span class="menu-item"><u>F</u>ile</span><span class="menu-item"><u>I</u>nnovate</span><span class="menu-item"><u>S</u>ubmit Idea</span></div>
+    <div class="win-body">
+      <div style="font-size:11px;color:#000;margin-bottom:8px">C:\Withum\FY26\NicheAndFirm\ &mdash; 5 initiatives shipped</div>
+      <div class="list98">
+        <div class="list-item"><div class="li-icon">&#127963;</div><div class="li-body"><div class="li-name">AI_LearningPaths.exe [DELIVERED &mdash; INDIA DIGITAL]</div><div class="li-sub">Built structured learning journeys: foundational AI, practical implementation, and emerging patterns including context engineering, agent-based systems, and MCP. Defined how India Dev approaches AI adoption systematically.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#129302;</div><div class="li-body"><div class="li-name">QAGen_Tool.exe [CONTRIBUTED &mdash; SHIPPED]</div><div class="li-sub">Contributed to building the AI-powered QA Gen Tool for test case and bug creation through the Jira lifecycle. Stack: Python, Jira API, AI-Based System Design. Improved QA productivity, execution speed, and analytical capability. The QA team breathes again.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#128200;</div><div class="li-body"><div class="li-name">PO_Dashboard_Architecture.exe [DELIVERED]</div><div class="li-sub">Partnered with Nandini, Saurabh, Abhishek, Nisarg to architect the automated PO Client Dashboard. Replaced legacy manual workflows with real-time risk management. Digital debt: measurably reduced.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#128295;</div><div class="li-body"><div class="li-name">SpecDrivenDevelopment.bat [ADOPTED &mdash; TEAM-WIDE]</div><div class="li-sub">Drove adoption of Spec Driven Development across the team. Shared learnings, collaborated on best practices, and worked toward code generation automation specs to reduce token costs and improve AI-assisted delivery.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#128300;</div><div class="li-body"><div class="li-name">DAS_RnD_AIIntegration.exe [RUNNING]</div><div class="li-sub">Actively identifying AI integration opportunities in DAS R&amp;D. Explored automation code generation, token cost reduction strategies, and new technologies to elevate platform capabilities. Continuous contribution. No end date set.</div></div></div>
+      </div>
+      <div class="status-bar"><span class="status-panel">5 initiatives</span><span class="status-panel">All active or delivered</span><span class="status-panel">0 jargon required</span></div>
+    </div>
+  </div>
+
+  <!-- DEVELOPMENT ROLES -->
+  <div class="win" id="win-roles">
+    <div class="win-title">
+      <div class="win-title-left"><div class="win-title-icon">&#127891;</div>DevRoles.exe &mdash; Talent Development Roles Held FY26</div>
+      <div class="win-btns"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
+    </div>
+    <div class="win-menu"><span class="menu-item"><u>F</u>ile</span><span class="menu-item"><u>R</u>oles</span><span class="menu-item"><u>T</u>alent</span></div>
+    <div class="win-body">
+      <div style="font-size:11px;color:#000;margin-bottom:8px">C:\Withum\FY26\TalentDevelopment\Roles\ &mdash; 5 roles installed simultaneously</div>
+      <div class="list98">
+        <div class="list-item"><div class="li-icon">&#127979;</div><div class="li-body"><div class="li-name">FacilitateTraining.role [ACTIVE]</div><div class="li-sub">Delivered Prompt Engineering training to India Dev team. Led AI Adoption DAS sessions. Ran Dev Catchup AI sessions with practical use cases. Shared system design learnings via internal tech sessions. Multiple training formats: deployed.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#129309;</div><div class="li-body"><div class="li-name">PeerMentor.role [ACTIVE]</div><div class="li-sub">Regular peer guidance across India Dev &mdash; architectural discussions, code review feedback, and first-principles thinking embedded into day-to-day conversations. Not on the calendar. Just happens.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#127775;</div><div class="li-body"><div class="li-name">SubjectMatterExpert.role [ACTIVE &mdash; AI + DAS]</div><div class="li-sub">Go-to technical authority for AI architecture, Prompt Engineering, and DAS infrastructure (procedures, risk publishing, reference copy). Consulted by clients and peers for informed opinions. Realistic expectations set. Over-promising: not installed.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#128483;</div><div class="li-body"><div class="li-name">UnofficialCoaching.role [ACTIVE]</div><div class="li-sub">Casual check-ins helping team members navigate shifting priorities. Encouraged independent analysis and solution ownership rather than roadmap-following. Results: team thinks for themselves now. Occasionally terrifying. Mostly excellent.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#128736;</div><div class="li-body"><div class="li-name">TechnicalMentor.role [ACTIVE &mdash; PRIMARY]</div><div class="li-sub">Weekly connect sessions with new and returning Empowers. Technical roadblocks addressed. Architectural logic discussed. Confidence built. Career Coach to 1&ndash;2 prot&eacute;g&eacute;s. The Empower cohort: dangerous in the best possible way.</div></div></div>
+      </div>
+      <div style="font-size:11px;color:#000;margin-top:8px;padding:6px;background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080">All 5 roles held concurrently. No additional RAM was requested. System stability: maintained.</div>
+      <div class="status-bar"><span class="status-panel">5 roles active</span><span class="status-panel">1&ndash;2 career prot&eacute;g&eacute;s</span><span class="status-panel">0 roles declined</span></div>
+    </div>
+  </div>
+
+  <!-- RECRUITMENT DRIVE -->
+  <div class="win" id="win-recruitment">
+    <div class="win-title">
+      <div class="win-title-left"><div class="win-title-icon">&#127919;</div>Recruitment_Drive.exe &mdash; Digital Empower 2026&ndash;27 Batch</div>
+      <div class="win-btns"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
+    </div>
+    <div class="win-menu"><span class="menu-item"><u>F</u>ile</span><span class="menu-item"><u>E</u>valuate</span><span class="menu-item"><u>H</u>ire</span></div>
+    <div class="win-body">
+      <div style="font-size:11px;color:#000;margin-bottom:8px">C:\Withum\FY26\Recruitment\Empower2027\ &mdash; Event: May 12&ndash;13, 2026</div>
+      <div class="list98">
+        <div class="list-item"><div class="li-icon">&#128203;</div><div class="li-body"><div class="li-name">Interview_Toolkit.html [BUILT &amp; DEPLOYED]</div><div class="li-sub">Designed and built a web-based interview toolkit specifically for this recruitment drive. Provides structured, consistent, technically-grounded candidate evaluation. Live at: atishnaik8805.github.io/interview-toolkit &mdash; Used in production on both days.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#128197;</div><div class="li-body"><div class="li-name">RecruitmentDrive_Day1.log [May 12, 2026 &mdash; COMPLETED]</div><div class="li-sub">Participated in Day 1. Structured candidate evaluation. Technical assessments conducted. First batch of future Empowers reviewed. The toolkit worked. Nobody had to use a spreadsheet. Historic.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#128197;</div><div class="li-body"><div class="li-name">RecruitmentDrive_Day2.log [May 13, 2026 &mdash; COMPLETED]</div><div class="li-sub">Day 2 complete. Final candidate assessments done. Atish showed up both days, which was not mandatory and was very noted. Standards maintained. Process consistent. The next generation of Empowers: identified.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#9989;</div><div class="li-body"><div class="li-name">Empower_2026-27_Batch.result [GUILD EXPANDED]</div><div class="li-sub">New Empower batch selected via structured, fair, technically-grounded evaluation. The guild grows. The mentorship cycle reloads. And somewhere, the new Empowers are about to learn what "first-principles thinking" means for the first time.</div></div></div>
+      </div>
+      <div class="status-bar"><span class="status-panel">2 days attended</span><span class="status-panel">1 toolkit built &amp; live</span><span class="status-panel">New batch: selected</span></div>
+    </div>
+  </div>
+
+  <!-- BUSINESS DEVELOPMENT -->
+  <div class="win" id="win-bizdev">
+    <div class="win-title">
+      <div class="win-title-left"><div class="win-title-icon">&#128188;</div>BizDev_Marketing.exe &mdash; Business Development &amp; Thought Leadership</div>
+      <div class="win-btns"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
+    </div>
+    <div class="win-menu"><span class="menu-item"><u>F</u>ile</span><span class="menu-item"><u>P</u>ublish</span><span class="menu-item"><u>G</u>row Pipeline</span></div>
+    <div class="win-body">
+      <div style="font-size:11px;color:#000;margin-bottom:8px">C:\Withum\FY26\BizDev\ &mdash; 2 articles published, 1 billable target in progress</div>
+      <div class="list98">
+        <div class="list-item"><div class="li-icon">&#128218;</div><div class="li-body"><div class="li-name">Blog_Part1_ROI_AI_Modernization.doc [PUBLISHED]</div><div class="li-sub">"From Legacy to Leading Edge: Calculating the ROI of AI-Powered Application Modernization &mdash; Part 1: The Strategic Imperative and AI's Multifaceted ROI." Audience: C-level + senior engineering decision-makers. Goal: drive awareness of Withum's AI modernization offering. Mission: accomplished.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#128218;</div><div class="li-body"><div class="li-name">Blog_Part2_ROI_AI_Modernization.doc [PUBLISHED]</div><div class="li-sub">"Part 2: Real-World Impact, Strategic Frameworks, and Partnering for Success." Continued the commercial narrative. ROI frameworks, partnership value, Withum positioning. Same C-suite audience. Strengthened the "Senior Developer + Azure AI" offering visibility. Not bad for someone who also owns the risk publishing microservice.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#127942;</div><div class="li-body"><div class="li-name">Withum_AI_Offering_Visibility.result [ELEVATED]</div><div class="li-sub">Content shaped specifically for business leaders &mdash; strategic, value-focused, jargon-free where it counts. Contributed to Withum brand positioning in AI modernization. Both articles: published, real, and read by actual humans. A remarkable outcome for voluntary work.</div></div></div>
+        <div class="list-item"><div class="li-icon">&#9201;</div><div class="li-body"><div class="li-name">Billable_Hours_FY26.bat [IN PROGRESS &mdash; 80% COMPLETE]</div><div class="li-sub">FY26 target: 1,800 billable hours. Current status: ~80% tracking. Primary: DAS project &mdash; core development, documentation, AI adoption, R&amp;D. Actions taken to maximise: all of them. What prevented full target: DAS priorities and non-billable firm contributions. The bat file runs every morning regardless.</div></div></div>
+      </div>
+      <div style="font-size:11px;color:#000;margin-top:8px;padding:6px;background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080">Client wins contributed to: DAS platform robustness, PO Dashboard delivery, QA workflow improvement. No client complaints filed this year.</div>
+      <div class="status-bar"><span class="status-panel">2 articles published</span><span class="status-panel">Billable: ~80% of target</span><span class="status-panel">Pipeline: AI blogs as asset</span></div>
+    </div>
+  </div>
+
+  <!-- FY27 BSOD TEASER -->
+  <div class="bsod" id="win-bsod">
+    <h3>WithumOS 98 &mdash; Season Finale Screen</h3>
+    <p>A fatal exception FY26 has occurred at 0028:C0011E36 in VXD DAS(01) + 00010E36.<br>
+    The current application will be terminated.</p>
+    <p>* Press any key to advance to FY27.<br>
+    * If this is the first time you have seen this review, restart and review the<br>
+    &nbsp;&nbsp;Supply Chain POC section. If this screen appears again, it will appear in FY27<br>
+    &nbsp;&nbsp;as a working prototype instead of a concept deck.</p>
+    <p>Press ENTER to continue _</p>
+    <div style="margin-top:16px;border-top:1px solid #4444aa;padding-top:12px">
+      <div class="bsod-item">FY27 PREVIEW &mdash; Coming to C:\FY27\Goals\</div>
+      <div class="bsod-item">&gt; NLSQL_POC.exe &mdash; The idea becomes real code.</div>
+      <div class="bsod-item">&gt; AI_Roadmap.doc &mdash; The map gets drawn.</div>
+      <div class="bsod-item">&gt; Empower_Guild_v2.exe &mdash; The students become teachers.</div>
+      <div class="bsod-item">&gt; 1800hrs.bat &mdash; The grind continues.</div>
+      <div style="margin-top:12px;font-size:13px" class="blink">_ FY27 loading... please wait</div>
+    </div>
+  </div>
+
+  <!-- RECYCLE BIN -->
+  <div class="win" id="win-recycle">
+    <div class="win-title">
+      <div class="win-title-left">
+        <div class="win-title-icon">&#128465;</div>
+        Recycle Bin &mdash; C:\WINDOWS\RECYCLED\FY26\
+      </div>
+      <div class="win-btns">
+        <div class="win-btn">_</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="win-menu">
+      <span class="menu-item"><u>F</u>ile</span>
+      <span class="menu-item"><u>E</u>dit</span>
+      <span class="menu-item">Empty Rec<u>y</u>cle Bin</span>
+      <span class="menu-item"><u>H</u>elp</span>
+    </div>
+    <div class="win-body">
+      <div style="font-size:11px;color:#000;margin-bottom:8px;font-family:'Courier New'">These files were deleted during FY26. They are here for a reason. Think carefully before restoring.</div>
+      <div class="list98">
+        <div class="list-item" ondblclick="restoreAlert('CorporateJargon.dll')">
+          <div class="li-icon">&#128465;</div>
+          <div class="li-body">
+            <div class="li-name">CorporateJargon.dll</div>
+            <div class="li-sub">Deleted: Q1 FY26 &mdash; Reason: Replaced by ACTUALWORK.EXE. Not missed.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('SupplyChain_POC_Timeline_FINAL.xlsx')">
+          <div class="li-icon">&#128202;</div>
+          <div class="li-body">
+            <div class="li-name">SupplyChain_POC_Timeline_FINAL.xlsx</div>
+            <div class="li-sub">Deleted: Q2 FY26 &mdash; Reason: Superseded by SupplyChain_POC_Timeline_FINAL_v2.xlsx</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('SupplyChain_POC_Timeline_FINAL_v2.xlsx')">
+          <div class="li-icon">&#128202;</div>
+          <div class="li-body">
+            <div class="li-name">SupplyChain_POC_Timeline_FINAL_v2.xlsx</div>
+            <div class="li-sub">Deleted: Q3 FY26 &mdash; Reason: DAS happened. Both timelines: equally fictional.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('Meeting_That_Could_Have_Been_Email.msg')">
+          <div class="li-icon">&#128140;</div>
+          <div class="li-body">
+            <div class="li-name">Meeting_That_Could_Have_Been_Email.msg</div>
+            <div class="li-sub">Deleted: Multiple times, FY26 &mdash; Reason: It really could have been an email. It always can.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('1800hrs_Optimistic_Estimate.bat')">
+          <div class="li-icon">&#128196;</div>
+          <div class="li-body">
+            <div class="li-name">1800hrs_Optimistic_Estimate.bat</div>
+            <div class="li-sub">Deleted: Q1 FY26 &mdash; Reason: Original plan before DAS.exe consumed all available cycles. Status: 80% survived.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('TODO_Before_Standup.txt')">
+          <div class="li-icon">&#128196;</div>
+          <div class="li-body">
+            <div class="li-name">TODO_Before_Standup.txt</div>
+            <div class="li-sub">Deleted: Every Monday, FY26 &mdash; Size: 0 bytes &mdash; Reason: Created at 9:58am. Standup at 10:00am. Nothing written.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('Work_Life_Balance.exe')">
+          <div class="li-icon">&#9888;</div>
+          <div class="li-body">
+            <div class="li-name">Work_Life_Balance.exe</div>
+            <div class="li-sub">Deleted: Unknown &mdash; Reason: Application not found. Has never been found. Search continues.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('Lunch_Break.lnk')">
+          <div class="li-icon">&#127829;</div>
+          <div class="li-body">
+            <div class="li-name">Lunch_Break.lnk</div>
+            <div class="li-sub">Deleted: Q2 FY26 &mdash; Reason: Shortcut leads nowhere. Destination folder: DOES_NOT_EXIST.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('Quick_DAS_Fix.bat')">
+          <div class="li-icon">&#128196;</div>
+          <div class="li-body">
+            <div class="li-name">Quick_DAS_Fix.bat</div>
+            <div class="li-sub">Deleted: Q1 FY26 &mdash; Reason: Nothing about DAS is quick. File was misleadingly named from the start.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('FY26_Stress_Free_Quarter.ppt')">
+          <div class="li-icon">&#128196;</div>
+          <div class="li-body">
+            <div class="li-name">FY26_Stress_Free_Quarter.ppt</div>
+            <div class="li-sub">Deleted: Q1 FY26 &mdash; Slides: 0 &mdash; Reason: Presentation never started. Concept rejected by reality.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('NLSQL_Dev_Schedule_FY26.doc')">
+          <div class="li-icon">&#128196;</div>
+          <div class="li-body">
+            <div class="li-name">NLSQL_Dev_Schedule_FY26.doc</div>
+            <div class="li-sub">Deleted: Q3 FY26 &mdash; Reason: See SupplyChain_POC.idea~ for context. Both files share a destiny.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('Scope_As_Originally_Defined.doc')">
+          <div class="li-icon">&#128196;</div>
+          <div class="li-body">
+            <div class="li-name">Scope_As_Originally_Defined.doc</div>
+            <div class="li-sub">Deleted: Q2 FY26 &mdash; Reason: Scope changed. Then changed again. Original file no longer relevant to current reality.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('Free_Friday_Afternoon.ics')">
+          <div class="li-icon">&#128197;</div>
+          <div class="li-body">
+            <div class="li-name">Free_Friday_Afternoon.ics</div>
+            <div class="li-sub">Deleted: Every Friday, FY26 &mdash; Reason: Recurring calendar invite. Recurring cancellation. Zero occurrences completed.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('My_Opinion_In_That_Meeting.txt')">
+          <div class="li-icon">&#128196;</div>
+          <div class="li-body">
+            <div class="li-name">My_Opinion_In_That_Meeting.txt</div>
+            <div class="li-sub">Deleted: Multiple meetings, FY26 &mdash; Size: 4KB &mdash; Reason: File exists. Was never opened in the meeting. Thoughts kept to self.</div>
+          </div>
+        </div>
+        <div class="list-item" ondblclick="restoreAlert('Billable_Hours_Buffer.xls')">
+          <div class="li-icon">&#128202;</div>
+          <div class="li-body">
+            <div class="li-name">Billable_Hours_Buffer.xls</div>
+            <div class="li-sub">Deleted: Q4 FY26 &mdash; Reason: Buffer did not survive contact with DAS priorities. No buffer remains. We fly without a net.</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:10px">
+        <button class="btn98" onclick="alert('Restore All?\n\nAre you sure?\nThese files were deleted for a reason.\nSome things cannot be undone.\nThe scope will change again.\nThe meeting will still not be an email.\n\n[OK] = Nothing happens. This is for the best.')">Restore All</button>
+        <button class="btn98" onclick="alert('Empty Recycle Bin?\n\nDeleting: 15 items\nRecovering: 0 good decisions\nFreeing up: Several gigabytes of regret\n\nAre you sure? [Yes] [No]\n\n(Both buttons do nothing. The files live on in memory.)')">Empty Recycle Bin</button>
+      </div>
+      <div class="status-bar">
+        <span class="status-panel">15 items</span>
+        <span class="status-panel">0 bytes recoverable</span>
+        <span class="status-panel">Some things are better left deleted</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TASKBAR -->
+  <div class="taskbar">
+    <button class="start-btn">&#127381; Start</button>
+    <div class="taskbar-btn" id="tb-review" onclick="openWin('win-review','tb-review')">&#128203; FY26_Review.exe</div>
+    <div class="taskbar-btn" id="tb-achievements" onclick="openWin('win-achievements','tb-achievements')">&#128193; Achievements</div>
+    <div class="taskbar-btn" id="tb-projects" onclick="openWin('win-projects','tb-projects')">&#128190; Projects</div>
+    <div class="taskbar-btn" id="tb-skills" onclick="openWin('win-skills','tb-skills')">&#128202; Skills.xls</div>
+    <div class="taskbar-btn" id="tb-team" onclick="openWin('win-team','tb-team')">&#128101; Team</div>
+    <div class="taskbar-btn" id="tb-synergy" onclick="openWin('win-synergy','tb-synergy')">&#128465; Jargon.dll [ERR]</div>
+    <div class="taskbar-btn" id="tb-poc" onclick="openWin('win-poccerror','tb-poc')">&#9888; POC~</div>
+    <div class="taskbar-btn" id="tb-goals" onclick="openWin('win-goals','tb-goals')">&#128197; FY27</div>
+    <div class="taskbar-btn" id="tb-niche" onclick="openWin('win-niche','tb-niche')">&#128161; Niche</div>
+    <div class="taskbar-btn" id="tb-roles" onclick="openWin('win-roles','tb-roles')">&#127891; Roles</div>
+    <div class="taskbar-btn" id="tb-recruit" onclick="openWin('win-recruitment','tb-recruit')">&#127919; Recruit</div>
+    <div class="taskbar-btn" id="tb-bizdev" onclick="openWin('win-bizdev','tb-bizdev')">&#128188; BizDev</div>
+    <div class="taskbar-btn" id="tb-bsod" onclick="openWin('win-bsod','tb-bsod')">&#128218; BSOD</div>
+    <div class="taskbar-btn" id="tb-recycle" onclick="openWin('win-recycle','tb-recycle')">&#128465; Recycle Bin</div>
+    <div class="taskbar-clock" id="win98-clock">12:00 PM</div>
+  </div>
+
+</div>
+</div><!-- /screen-desktop -->
+
+<script>
+  function openWin(winId, tbId) {
+    var el = document.getElementById(winId);
+    if (!el) return;
+    var isOpen = el.classList.contains('open');
+    if (isOpen) {
+      el.classList.remove('open');
+      if (tbId) { var tb = document.getElementById(tbId); if (tb) tb.classList.remove('active'); }
+    } else {
+      el.classList.add('open');
+      if (tbId) { var tb = document.getElementById(tbId); if (tb) tb.classList.add('active'); }
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      animateBars(el);
+    }
+  }
+
+  function closeWin(btn) {
+    var el = btn.closest('.win') || btn.closest('.error-dialog') || btn.closest('.bsod');
+    if (!el) return;
+    el.classList.remove('open');
+    var id = el.id;
+    document.querySelectorAll('.taskbar-btn').forEach(function(tb) {
+      if (tb.getAttribute('onclick') && tb.getAttribute('onclick').indexOf(id) > -1) {
+        tb.classList.remove('active');
+      }
+    });
+  }
+
+  function animateBars(container) {
+    container.querySelectorAll('.progress-fill, .progress-striped').forEach(function(el) {
+      var w = el.getAttribute('data-w');
+      if (w) { el.style.width = '0%'; setTimeout(function(){ el.style.width = w + '%'; }, 100); }
+    });
+    container.querySelectorAll('.progress-red').forEach(function(el) {
+      el.style.width = '0%'; setTimeout(function(){ el.style.width = '3%'; }, 100);
+    });
+  }
+
+  function updateClock() {
+    var now = new Date();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    m = m < 10 ? '0' + m : m;
+    var el = document.getElementById('win98-clock');
+    if (el) el.textContent = h + ':' + m + ' ' + ampm;
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  // ===== BOOT SEQUENCE =====
+  var bootMessages = [
+    "WithumOS 98 is starting...",
+    "Loading KERNEL.EXE...",
+    "Initialising DAS_CORE.DLL...",
+    "Loading AI_ARCHITECTURE.SYS...",
+    "Checking SYNERGY.DLL... NOT FOUND. Continuing anyway.",
+    "Loading PROMPT_ENGINEER.EXE... OK",
+    "Loading EMPOWER_MENTOR.EXE... OK",
+    "Loading INTERVIEW_TOOLKIT.HTML... OK",
+    "Scanning for undocumented procedures... Documenting.",
+    "Loading FY26_REVIEW.EXE...",
+    "Starting WithumOS 98. Please wait."
+  ];
+
+  var bootIndex = 0;
+  var bootProgress = 0;
+  var bootInterval;
+
+  function runBoot() {
+    var linesEl = document.getElementById('boot-lines');
+    var barEl = document.getElementById('boot-bar');
+    var labelEl = document.getElementById('boot-bar-label');
+
+    bootInterval = setInterval(function() {
+      if (bootIndex < bootMessages.length) {
+        var line = document.createElement('div');
+        line.className = 'boot-line show';
+        line.textContent = '> ' + bootMessages[bootIndex];
+        linesEl.appendChild(line);
+        linesEl.scrollTop = linesEl.scrollHeight;
+        bootProgress = Math.round(((bootIndex + 1) / bootMessages.length) * 100);
+        barEl.style.width = bootProgress + '%';
+        labelEl.textContent = bootProgress + '% complete...';
+        bootIndex++;
+      } else {
+        clearInterval(bootInterval);
+        labelEl.textContent = 'Boot complete. Loading login screen...';
+        setTimeout(showLogin, 900);
+      }
+    }, 320);
+  }
+
+  function showLogin() {
+    var boot = document.getElementById('screen-boot');
+    var login = document.getElementById('screen-login');
+    boot.style.opacity = '0';
+    boot.style.transition = 'opacity 0.5s ease';
+    setTimeout(function() {
+      boot.style.display = 'none';
+      login.style.display = 'flex';
+      login.style.opacity = '0';
+      login.style.transition = 'opacity 0.4s ease';
+      setTimeout(function() { login.style.opacity = '1'; }, 30);
+      setTimeout(function() {
+        var pw = document.getElementById('login-password');
+        if (pw) pw.focus();
+      }, 500);
+    }, 500);
+  }
+
+  var loginAttempts = 0;
+  var wrongMessages = [
+    '',
+    'Incorrect password. (Hint: any key works)',
+    'Still wrong. Just press OK.',
+    'The password is literally anything.',
+    'OK fine. Logging you in anyway.'
+  ];
+
+  function doLogin() {
+    loginAttempts++;
+    var warn = document.getElementById('login-warning');
+    if (loginAttempts <= 3) {
+      warn.textContent = wrongMessages[loginAttempts] || wrongMessages[wrongMessages.length - 1];
+      if (loginAttempts < 4) return;
+    }
+    var login = document.getElementById('screen-login');
+    var desk = document.getElementById('screen-desktop');
+    login.style.opacity = '0';
+    login.style.transition = 'opacity 0.5s ease';
+    setTimeout(function() {
+      login.style.display = 'none';
+      desk.style.display = 'block';
+      desk.classList.add('desk-fadein');
+      updateClock();
+    }, 500);
+  }
+
+  function showShutdown() {
+    document.getElementById('screen-boot').style.display = 'flex';
+    document.getElementById('screen-boot').style.opacity = '1';
+    document.getElementById('screen-login').style.display = 'none';
+    document.getElementById('screen-desktop').style.display = 'none';
+    var linesEl = document.getElementById('boot-lines');
+    linesEl.innerHTML = '';
+    var msgs = ['Shutting down WithumOS 98...','Saving FY26 session state...','Closing SYNERGY.DLL... (it was already closed)','Writing DAS documentation... still writing...','WithumOS 98 is now safe to review next year.'];
+    var i = 0;
+    var si = setInterval(function(){
+      if(i < msgs.length){
+        var l = document.createElement('div');
+        l.className = 'boot-line show';
+        l.textContent = '> ' + msgs[i];
+        linesEl.appendChild(l);
+        i++;
+      } else {
+        clearInterval(si);
+      }
+    }, 600);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var pw = document.getElementById('login-password');
+    if (pw) {
+      pw.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') doLogin();
+      });
+    }
+    runBoot();
+  });
+
+
+  function restoreAlert(filename) {
+    var msgs = {
+      'CorporateJargon.dll': 'Restore CorporateJargon.dll?\n\nThis file served no purpose when it existed.\nIt will serve no purpose if restored.\n\n[Restore] button has been disabled for your protection.',
+      'Work_Life_Balance.exe': 'Restore Work_Life_Balance.exe?\n\nOriginal installation location not found.\nHas never been found.\nCannot restore what was never fully installed.\n\nTry again in FY27. Or FY28.',
+      'Lunch_Break.lnk': 'Restore Lunch_Break.lnk?\n\nWarning: Shortcut destination does not exist.\nRestoring this file will create a shortcut to nothing.\nThis is a metaphor.\n\nRestore anyway? [Yes, I am optimistic] [No, I understand now]',
+      'TODO_Before_Standup.txt': 'Restore TODO_Before_Standup.txt?\n\nFile contents: (empty)\nLast modified: 9:58 AM\nStandup: 10:00 AM\n\nNothing to restore. Nothing was ever written.',
+      'Free_Friday_Afternoon.ics': 'Restore Free_Friday_Afternoon.ics?\n\nRecurring event: Every Friday\nStatus: Cancelled (52/52 occurrences)\nNext occurrence: Unknown\nOptimism required: High\n\nRestoring this file will not make Friday afternoons free.',
+      'Quick_DAS_Fix.bat': 'Restore Quick_DAS_Fix.bat?\n\nWarning: File is misleadingly named.\nNo fix in this file has ever been quick.\nRestoring will not change this fundamental truth.',
+    };
+    var msg = msgs[filename] || 'Restore ' + filename + '?\n\nAre you sure?\nThis file was deleted for a reason.\nThe reason was good.\nThe reason still applies.\n\nRestore button: [disabled]';
+    alert(msg);
+  }
+
+</script>
+</body>
+</html>
