@@ -8,7 +8,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #008080; font-family: 'Courier New', monospace; min-height: 100vh; }
 
-  .desk { background: #008080; padding: 16px; min-height: 100vh; }
+  .desk { background: #008080; padding: 16px 16px 64px; min-height: 100vh; }
 
   /* DESKTOP ICONS */
   .desktop-icons { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; }
@@ -82,7 +82,7 @@
   .status-panel { border: 2px solid; border-color: #808080 #fff #fff #808080; padding: 1px 8px; font-size: 11px; color: #000; font-family: 'Courier New', monospace; }
 
   /* TASKBAR */
-  .taskbar { background: #c0c0c0; border-top: 2px solid #fff; padding: 4px 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .taskbar { background: #c0c0c0; border-top: 2px solid #fff; padding: 4px 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9998; }
   .start-btn { background: #c0c0c0; border: 2px solid; border-color: #fff #808080 #808080 #fff; padding: 4px 12px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; color: #000; font-family: 'Courier New', monospace; }
   .start-btn:active { border-color: #808080 #fff #fff #808080; }
   .taskbar-btn { background: #c0c0c0; border: 2px solid; border-color: #808080 #fff #fff #808080; padding: 2px 10px; font-size: 11px; color: #000; cursor: pointer; font-family: 'Courier New', monospace; white-space: nowrap; }
@@ -118,7 +118,7 @@
 
   /* ===== BOOT SCREENS ===== */
   #screen-boot, #screen-login, #screen-desktop { position:fixed; top:0; left:0; width:100%; height:100%; z-index:9999; }
-  #screen-desktop { position:relative; z-index:0; display:none; }
+  #screen-desktop { position:relative; z-index:0; display:none; padding-bottom: 52px; }
 
   /* BOOT SCREEN */
   #screen-boot { background:#000; display:flex; flex-direction:column; justify-content:center; align-items:center; }
@@ -153,6 +153,51 @@
   /* DESKTOP FADE IN */
   @keyframes desktopFadeIn { from{opacity:0} to{opacity:1} }
   .desk-fadein { animation: desktopFadeIn 0.8s ease forwards; }
+
+  /* ===== START MENU ===== */
+  #start-menu { display:none; position:fixed; bottom:52px; left:0; z-index:99999; width:240px; background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; box-shadow:3px 3px 6px rgba(0,0,0,0.4); font-family:'Courier New',monospace; }
+  #start-menu.open { display:block; }
+  .sm-sidebar { position:absolute; left:0; top:0; bottom:0; width:24px; background:#808080; display:flex; align-items:flex-end; padding:6px 0; }
+  .sm-sidebar-text { color:#c0c0c0; font-size:11px; font-weight:bold; writing-mode:vertical-rl; transform:rotate(180deg); letter-spacing:2px; white-space:nowrap; }
+  .sm-items { margin-left:24px; }
+  .sm-item { display:flex; align-items:center; gap:8px; padding:5px 12px 5px 8px; font-size:12px; color:#000; cursor:pointer; position:relative; }
+  .sm-item:hover { background:#000080; color:#fff; }
+  .sm-item:hover .sm-arrow { color:#fff; }
+  .sm-item:hover .sm-sub { display:block; }
+  .sm-item-icon { font-size:16px; width:22px; text-align:center; flex-shrink:0; }
+  .sm-item-label { flex:1; }
+  .sm-arrow { font-size:10px; color:#555; }
+  .sm-divider { border:none; border-top:1px solid #808080; margin:3px 8px; }
+  .sm-divider-w { border:none; border-top:1px solid #fff; margin:0 8px 3px; }
+  .sm-sub { display:none; position:absolute; left:100%; top:-2px; background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; width:220px; z-index:100000; box-shadow:3px 3px 6px rgba(0,0,0,0.3); }
+  .sm-sub-item { display:flex; align-items:center; gap:8px; padding:5px 12px 5px 8px; font-size:12px; color:#000; cursor:pointer; }
+  .sm-sub-item:hover { background:#000080; color:#fff; }
+  .sm-sub-item-icon { font-size:14px; width:20px; text-align:center; flex-shrink:0; }
+  /* Run dialog */
+  #run-dialog { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:99999; background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; width:320px; box-shadow:4px 4px 8px rgba(0,0,0,0.5); }
+  #run-dialog.open { display:block; }
+  #find-dialog { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:99999; background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; width:320px; box-shadow:4px 4px 8px rgba(0,0,0,0.5); }
+  #find-dialog.open { display:block; }
+  #help-dialog { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:99999; background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; width:340px; box-shadow:4px 4px 8px rgba(0,0,0,0.5); }
+  #help-dialog.open { display:block; }
+  #cp-dialog { display:none; position:fixed; top:40%; left:50%; transform:translate(-50%,-50%); z-index:99999; background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; width:380px; box-shadow:4px 4px 8px rgba(0,0,0,0.5); }
+  #cp-dialog.open { display:block; }
+  .dialog-title { background:#000080; color:#fff; padding:3px 6px; font-size:12px; font-weight:bold; display:flex; align-items:center; justify-content:space-between; font-family:'Courier New',monospace; }
+  .dialog-title-left { display:flex; align-items:center; gap:6px; }
+  .dialog-icon { width:14px; height:14px; background:#c0c0c0; border:1px solid #808080; display:flex; align-items:center; justify-content:center; font-size:9px; color:#000; }
+  .dialog-body { padding:14px; font-size:12px; color:#000; font-family:'Courier New',monospace; }
+  .dialog-field { background:#fff; border:2px solid; border-color:#808080 #fff #fff #808080; padding:3px 6px; font-size:12px; width:100%; font-family:'Courier New',monospace; color:#000; margin:6px 0; }
+  .dialog-btns { display:flex; gap:6px; justify-content:flex-end; margin-top:12px; }
+  .dialog-btn { background:#c0c0c0; border:2px solid; border-color:#fff #808080 #808080 #fff; padding:4px 16px; font-size:12px; cursor:pointer; color:#000; font-family:'Courier New',monospace; min-width:70px; }
+  .dialog-btn:active { border-color:#808080 #fff #fff #808080; }
+  .dialog-btn:hover { background:#d4d0c8; }
+  .cp-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:8px 0; }
+  .cp-item { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; padding:6px 4px; border:2px solid transparent; }
+  .cp-item:hover { background:#000080; border-color:dotted; }
+  .cp-item:hover .cp-label { color:#fff; }
+  .cp-icon { font-size:24px; }
+  .cp-label { font-size:10px; color:#000; text-align:center; font-family:'Courier New',monospace; line-height:1.2; }
+  .find-result { background:#fff; border:2px solid; border-color:#808080 #fff #fff #808080; padding:6px; font-size:11px; margin-top:8px; min-height:50px; font-family:'Courier New',monospace; color:#000; }
 </style>
 </head>
 <body>
@@ -746,6 +791,171 @@
     </div>
   </div>
 
+
+  <!-- START MENU -->
+  <div id="start-menu">
+    <div class="sm-sidebar"><div class="sm-sidebar-text">WithumOS 98</div></div>
+    <div class="sm-items">
+      <div class="sm-item" onmouseenter="this.querySelector('.sm-sub').style.display='block'" onmouseleave="this.querySelector('.sm-sub').style.display='none'" onclick="">
+        <span class="sm-item-icon">&#128193;</span>
+        <span class="sm-item-label"><b>Programs</b></span>
+        <span class="sm-arrow">&#9658;</span>
+        <div class="sm-sub">
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-review','tb-review')"><span class="sm-sub-item-icon">&#128203;</span>FY26_Review.exe</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-achievements','tb-achievements')"><span class="sm-sub-item-icon">&#128193;</span>My Achievements</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-projects','tb-projects')"><span class="sm-sub-item-icon">&#128190;</span>Projects (4)</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-skills','tb-skills')"><span class="sm-sub-item-icon">&#128202;</span>Skills.xls</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-team','tb-team')"><span class="sm-sub-item-icon">&#128101;</span>Team_Impact.exe</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-niche','tb-niche')"><span class="sm-sub-item-icon">&#128161;</span>Niche_Initiatives.exe</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-roles','tb-roles')"><span class="sm-sub-item-icon">&#127891;</span>DevRoles.exe</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-recruitment','tb-recruit')"><span class="sm-sub-item-icon">&#127919;</span>Recruitment_Drive.exe</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-bizdev','tb-bizdev')"><span class="sm-sub-item-icon">&#128188;</span>BizDev_Marketing.exe</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-goals','tb-goals')"><span class="sm-sub-item-icon">&#128197;</span>FY27_Goals.lnk</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-bsod','tb-bsod')"><span class="sm-sub-item-icon">&#128218;</span>BSOD_Teaser.scr</div>
+          <hr class="sm-divider">
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-synergy','tb-synergy')"><span class="sm-sub-item-icon">&#128465;</span>CorporateJargon.dll [ERR]</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-poccerror','tb-poc')"><span class="sm-sub-item-icon">&#9888;</span>SupplyChain_POC~</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-recycle','tb-recycle')"><span class="sm-sub-item-icon">&#128465;</span>Recycle Bin (15 items)</div>
+        </div>
+      </div>
+      <div class="sm-item" onmouseenter="this.querySelector('.sm-sub').style.display='block'" onmouseleave="this.querySelector('.sm-sub').style.display='none'">
+        <span class="sm-item-icon">&#128196;</span>
+        <span class="sm-item-label">Documents</span>
+        <span class="sm-arrow">&#9658;</span>
+        <div class="sm-sub">
+          <div class="sm-sub-item" onclick="closeStart();alert('Opening: AI_Blog_Part1.doc\n\nFrom Legacy to Leading Edge: Calculating the ROI of AI-Powered Application Modernization\nPart 1: The Strategic Imperative and AI\'s Multifaceted ROI\n\nStatus: Published. Actually read by humans.')"><span class="sm-sub-item-icon">&#128218;</span>AI_Blog_Part1.doc</div>
+          <div class="sm-sub-item" onclick="closeStart();alert('Opening: AI_Blog_Part2.doc\n\nFrom Legacy to Leading Edge\nPart 2: Real-World Impact, Strategic Frameworks, and Partnering for Success\n\nStatus: Published. C-level audience confirmed.')"><span class="sm-sub-item-icon">&#128218;</span>AI_Blog_Part2.doc</div>
+          <div class="sm-sub-item" onclick="closeStart();alert('Opening: DAS_Procedures.doc\n\nAuthor: Atish Naik\nPages: Many. All documented.\nLast edited: Regularly.\nStatus: Actually maintained, unlike most documentation.')"><span class="sm-sub-item-icon">&#128203;</span>DAS_Procedures.doc</div>
+          <div class="sm-sub-item" onclick="closeStart();alert('Opening: PromptEngineering_Course.ppt\n\n47 slides.\nDelivered to India Dev team.\nObjective: Make the team stop treating LLMs as magic.\nOutcome: Objective achieved.')"><span class="sm-sub-item-icon">&#129504;</span>PromptEng_Course.ppt</div>
+          <div class="sm-sub-item" onclick="closeStart();alert('Opening: Empower_Session_Notes.doc\n\nWeekly. Every week. New cohort + returning cohort.\nTopics: Architecture, first principles, roadblocks, life.\nStatus: Ongoing. No end date planned.')"><span class="sm-sub-item-icon">&#128101;</span>Empower_Session_Notes.doc</div>
+          <div class="sm-sub-item" onclick="closeStart();alert('Opening: SupplyChain_NLSQL_Concept.idea~\n\nStatus: Exists as a concept. Does not exist as code.\nArchitecture: Mapped.\nExec deck: Built.\nDevelopment: Pending TIME.dll (FY27).')"><span class="sm-sub-item-icon">&#9888;</span>SupplyChain_NLSQL.idea~</div>
+        </div>
+      </div>
+      <div class="sm-item" onclick="closeStart();document.getElementById('cp-dialog').classList.add('open')">
+        <span class="sm-item-icon">&#9881;</span>
+        <span class="sm-item-label">Settings</span>
+        <span class="sm-arrow">&#9658;</span>
+        <div class="sm-sub" style="pointer-events:none">
+          <div class="sm-sub-item"><span class="sm-sub-item-icon">&#9881;</span>Control Panel</div>
+          <div class="sm-sub-item"><span class="sm-sub-item-icon">&#128438;</span>Taskbar &amp; Start Menu</div>
+        </div>
+      </div>
+      <div class="sm-item" onclick="closeStart();document.getElementById('find-dialog').classList.add('open')">
+        <span class="sm-item-icon">&#128269;</span>
+        <span class="sm-item-label">Find</span>
+      </div>
+      <div class="sm-item" onclick="closeStart();document.getElementById('help-dialog').classList.add('open')">
+        <span class="sm-item-icon">&#10067;</span>
+        <span class="sm-item-label">Help</span>
+      </div>
+      <div class="sm-item" onclick="closeStart();document.getElementById('run-dialog').classList.add('open')">
+        <span class="sm-item-icon">&#128640;</span>
+        <span class="sm-item-label">Run...</span>
+      </div>
+      <hr class="sm-divider">
+      <hr class="sm-divider-w">
+      <div class="sm-item" onclick="closeStart();showShutdown()">
+        <span class="sm-item-icon">&#128274;</span>
+        <span class="sm-item-label">Log Off Atish...</span>
+      </div>
+      <div class="sm-item" onclick="closeStart();showShutdown()">
+        <span class="sm-item-icon">&#128272;</span>
+        <span class="sm-item-label">Shut Down...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RUN DIALOG -->
+  <div id="run-dialog">
+    <div class="dialog-title">
+      <div class="dialog-title-left"><div class="dialog-icon">&#128640;</div>Run</div>
+      <div class="win-btn" onclick="document.getElementById('run-dialog').classList.remove('open')" style="background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;width:18px;height:15px;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#000;font-family:'Courier New',monospace;font-weight:bold">&#x2715;</div>
+    </div>
+    <div class="dialog-body">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="font-size:28px">&#128640;</span>
+        <span style="font-size:11px;line-height:1.5">Type the name of a program, document, or achievement you want to open, and WithumOS 98 will open it for you.</span>
+      </div>
+      <div style="margin-bottom:4px">Open:</div>
+      <input class="dialog-field" id="run-input" placeholder="e.g. win-achievements" />
+      <div style="font-size:10px;color:#555;margin-top:4px">Try: win-achievements, win-team, win-skills, win-projects, win-goals, win-niche, win-roles, win-recruitment, win-bizdev, win-bsod</div>
+      <div class="dialog-btns">
+        <button class="dialog-btn" onclick="doRun()">OK</button>
+        <button class="dialog-btn" onclick="document.getElementById('run-dialog').classList.remove('open')">Cancel</button>
+        <button class="dialog-btn" onclick="document.getElementById('run-dialog').classList.remove('open')">Browse...</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIND DIALOG -->
+  <div id="find-dialog">
+    <div class="dialog-title">
+      <div class="dialog-title-left"><div class="dialog-icon">&#128269;</div>Find: Files or Folders</div>
+      <div class="win-btn" onclick="document.getElementById('find-dialog').classList.remove('open')" style="background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;width:18px;height:15px;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#000;font-family:'Courier New',monospace;font-weight:bold">&#x2715;</div>
+    </div>
+    <div class="dialog-body">
+      <div style="margin-bottom:4px">Named:</div>
+      <input class="dialog-field" id="find-input" placeholder="e.g. synergy.dll" />
+      <div style="margin-bottom:4px">Look in: <strong>C:\WithumFY26\</strong></div>
+      <div class="find-result" id="find-result">Results will appear here...</div>
+      <div class="dialog-btns">
+        <button class="dialog-btn" onclick="doFind()">Find Now</button>
+        <button class="dialog-btn" onclick="document.getElementById('find-input').value='';document.getElementById('find-result').innerHTML='Results will appear here...'">New Search</button>
+        <button class="dialog-btn" onclick="document.getElementById('find-dialog').classList.remove('open')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HELP DIALOG -->
+  <div id="help-dialog">
+    <div class="dialog-title">
+      <div class="dialog-title-left"><div class="dialog-icon">&#10067;</div>WithumOS 98 Help</div>
+      <div class="win-btn" onclick="document.getElementById('help-dialog').classList.remove('open')" style="background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;width:18px;height:15px;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#000;font-family:'Courier New',monospace;font-weight:bold">&#x2715;</div>
+    </div>
+    <div class="dialog-body">
+      <div style="font-weight:bold;margin-bottom:10px;font-size:13px">&#10067; WithumOS 98 Help Topics</div>
+      <div style="background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:10px;line-height:2;font-size:12px">
+        <div style="cursor:pointer;padding:2px 0" onclick="alert('Q: How do I open a window?\nA: Double-click any desktop icon, or click a taskbar button.\nAlternatively, use Start → Programs.')">&#9658; How do I open a window?</div>
+        <div style="cursor:pointer;padding:2px 0" onclick="alert('Q: Why is CorporateJargon.dll not found?\nA: Because you did actual work this year.\nActual work does not require jargon.\nSee TEAM_IMPACT.EXE for proof.')">&#9658; Why is CorporateJargon.dll not found?</div>
+        <div style="cursor:pointer;padding:2px 0" onclick="alert('Q: What is the next rank?\nA: [CLASSIFIED]\n\nDetails pending further notice.\nHave you tried asking someone who knows?\nWithumOS 98 Help does not know either.')">&#9658; What is my next rank?</div>
+        <div style="cursor:pointer;padding:2px 0" onclick="alert('Q: Why is the Supply Chain POC not working?\nA: Required dependency TIME.dll was not found.\nDAS_BANDWIDTH.dll was in use by another process.\nRetry scheduled for FY27.')">&#9658; Why did the Supply Chain POC fail?</div>
+        <div style="cursor:pointer;padding:2px 0" onclick="alert('Q: I have a problem I cannot solve.\nA: Have you tried documenting it?\nDocumentation solves most things.\nAtish can confirm this.')">&#9658; I have a problem. What do I do?</div>
+        <div style="cursor:pointer;padding:2px 0" onclick="alert('Q: How do I achieve 1,800 billable hours?\nA: Run 1800_BillableHours.bat every morning.\nNo snooze button installed.\nStatus: 80% complete. Keep going.')">&#9658; How do I hit the billable hours target?</div>
+      </div>
+      <div class="dialog-btns">
+        <button class="dialog-btn" onclick="document.getElementById('help-dialog').classList.remove('open')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROL PANEL -->
+  <div id="cp-dialog">
+    <div class="dialog-title">
+      <div class="dialog-title-left"><div class="dialog-icon">&#9881;</div>Control Panel</div>
+      <div class="win-btn" onclick="document.getElementById('cp-dialog').classList.remove('open')" style="background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;width:18px;height:15px;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#000;font-family:'Courier New',monospace;font-weight:bold">&#x2715;</div>
+    </div>
+    <div class="dialog-body" style="padding:10px">
+      <div style="font-size:11px;color:#555;margin-bottom:8px">C:\WINDOWS\Control Panel\ &mdash; 12 applets</div>
+      <div class="cp-grid">
+        <div class="cp-item" onclick="alert('Expectation Manager v2.6\n\nCurrent setting: REALISTIC\nOver-promising: DISABLED\nUnder-delivering: BLOCKED\n\nThis setting has been active since Q1 FY26.')"><div class="cp-icon">&#127919;</div><div class="cp-label">Expectation Manager</div></div>
+        <div class="cp-item" onclick="alert('Jargon Remover v1.0\n\nSynergy.dll: REMOVED\nLeverage.exe: QUARANTINED\nDisrupt.bat: DELETED\n\nReplaced with: ACTUALWORK.EXE')"><div class="cp-icon">&#128465;</div><div class="cp-label">Jargon Remover</div></div>
+        <div class="cp-item" onclick="alert('Empower Configurator\n\nCohort size: New + Returning\nSession frequency: Weekly\nSession type: Connect + Unblock\nMentorship mode: First-principles\n\nStatus: Running since Q1.')"><div class="cp-icon">&#128101;</div><div class="cp-label">Empower Config</div></div>
+        <div class="cp-item" onclick="alert('AI Adoption Settings\n\nLLM perception: ENGINEERED SYSTEM\n(was: MAGIC BOX — now fixed)\nPrompt Engineering: INSTALLED\nAgent patterns: LEARNED\nMCP: UNDERSTOOD')"><div class="cp-icon">&#129504;</div><div class="cp-label">AI Settings</div></div>
+        <div class="cp-item" onclick="alert('Documentation Manager\n\nDAS Procedures: DOCUMENTED\nRisk Publishing: DOCUMENTED\nReference Copy: DOCUMENTED\nChecklists: DOCUMENTED\nEverything else: IN PROGRESS')"><div class="cp-icon">&#128203;</div><div class="cp-label">Doc Manager</div></div>
+        <div class="cp-item" onclick="alert('Billable Hours Tracker\n\nFY26 Target: 1,800 hrs\nCurrent: ~1,440 hrs (~80%)\nDaily bat file: RUNNING\nSnooze button: NOT INSTALLED\nFY27 outlook: POSITIVE')"><div class="cp-icon">&#9201;</div><div class="cp-label">Hours Tracker</div></div>
+        <div class="cp-item" onclick="alert('XP Manager\n\nTotal XP: 10,500 / 12,000\nNext rank: [CLASSIFIED]\nDetails: PENDING FURTHER NOTICE\n\nNo further information available.')"><div class="cp-icon">&#11088;</div><div class="cp-label">XP Manager</div></div>
+        <div class="cp-item" onclick="alert('Supply Chain POC Status\n\nIdea: GOOD\nArchitecture: MAPPED\nExec deck: BUILT\nDevelopment: PENDING\n\nBlocked by: TIME.dll (not found)\nETA: FY27')"><div class="cp-icon">&#9888;</div><div class="cp-label">POC Monitor</div></div>
+        <div class="cp-item" onclick="alert('Blog Publisher\n\nPart 1: PUBLISHED\nPart 2: PUBLISHED\nAudience: C-level + senior eng\nReaders: Actual humans (confirmed)\n\nNext article: TBD')"><div class="cp-icon">&#128218;</div><div class="cp-label">Blog Publisher</div></div>
+        <div class="cp-item" onclick="alert('DAS Core Config\n\nStack: Angular + NestJS + Python + Java\nProcedures: OWNED\nRisk Publishing: OWNED\nReference Copy: OWNED\nChecklists: OWNED\n\nOwner: Atish Naik (self-appointed, respected)')"><div class="cp-icon">&#128737;</div><div class="cp-label">DAS Config</div></div>
+        <div class="cp-item" onclick="alert('Meeting Survival Settings\n\nBack-to-back DAS calls: SURVIVED\nAll-hands endurance: 99%\nVideo-off excuse generator: DISABLED\n(Atish keeps camera on. Always.)')"><div class="cp-icon">&#128247;</div><div class="cp-label">Meeting Survival</div></div>
+        <div class="cp-item" onclick="alert('FY27 Planner\n\n1. NLSQL_POC.exe — Build it.\n2. AI_Roadmap.doc — Write it.\n3. Empower_Guild_v2.exe — Launch it.\n4. 1800hrs.bat — Hit it.\n\nAll tasks: QUEUED. No excuses loaded.')"><div class="cp-icon">&#128197;</div><div class="cp-label">FY27 Planner</div></div>
+      </div>
+      <div class="dialog-btns">
+        <button class="dialog-btn" onclick="document.getElementById('cp-dialog').classList.remove('open')">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- RECYCLE BIN -->
   <div class="win" id="win-recycle">
     <div class="win-title">
@@ -888,7 +1098,7 @@
 
   <!-- TASKBAR -->
   <div class="taskbar">
-    <button class="start-btn">&#127381; Start</button>
+    <button class="start-btn" onclick="toggleStart()">&#127381; Start</button>
     <div class="taskbar-btn" id="tb-review" onclick="openWin('win-review','tb-review')">&#128203; FY26_Review.exe</div>
     <div class="taskbar-btn" id="tb-achievements" onclick="openWin('win-achievements','tb-achievements')">&#128193; Achievements</div>
     <div class="taskbar-btn" id="tb-projects" onclick="openWin('win-projects','tb-projects')">&#128190; Projects</div>
@@ -902,7 +1112,7 @@
     <div class="taskbar-btn" id="tb-recruit" onclick="openWin('win-recruitment','tb-recruit')">&#127919; Recruit</div>
     <div class="taskbar-btn" id="tb-bizdev" onclick="openWin('win-bizdev','tb-bizdev')">&#128188; BizDev</div>
     <div class="taskbar-btn" id="tb-bsod" onclick="openWin('win-bsod','tb-bsod')">&#128218; BSOD</div>
-    <div class="taskbar-btn" id="tb-recycle" onclick="openWin('win-recycle','tb-recycle')">&#128465; Recycle Bin</div>
+    <div class="taskbar-btn" id="tb-recycle" onclick="openWin('win-recycle','tb-recycle')">&#128465; Recycle (15)</div>
     <div class="taskbar-clock" id="win98-clock">12:00 PM</div>
   </div>
 
@@ -1082,16 +1292,107 @@
   });
 
 
+  // ===== START MENU =====
+  function toggleStart() {
+    var m = document.getElementById('start-menu');
+    m.classList.toggle('open');
+  }
+  function closeStart() {
+    document.getElementById('start-menu').classList.remove('open');
+  }
+  document.addEventListener('click', function(e) {
+    var m = document.getElementById('start-menu');
+    var btn = document.querySelector('.start-btn');
+    if (m && !m.contains(e.target) && btn && !btn.contains(e.target)) {
+      m.classList.remove('open');
+    }
+  });
+
+  // ===== RUN COMMAND =====
+  function doRun() {
+    var val = document.getElementById('run-input').value.trim().toLowerCase();
+    document.getElementById('run-dialog').classList.remove('open');
+    var winMap = {
+      'win-review': 'tb-review', 'win-achievements': 'tb-achievements',
+      'win-projects': 'tb-projects', 'win-skills': 'tb-skills',
+      'win-team': 'tb-team', 'win-synergy': 'tb-synergy',
+      'win-poccerror': 'tb-poc', 'win-goals': 'tb-goals',
+      'win-niche': 'tb-niche', 'win-roles': 'tb-roles',
+      'win-recruitment': 'tb-recruit', 'win-bizdev': 'tb-bizdev',
+      'win-bsod': 'tb-bsod',
+      'win-recycle': 'tb-recycle'
+    };
+    var nameMap = {
+      'achievements': 'win-achievements', 'projects': 'win-projects',
+      'skills': 'win-skills', 'team': 'win-team', 'goals': 'win-goals',
+      'niche': 'win-niche', 'roles': 'win-roles', 'recruitment': 'win-recruitment',
+      'bizdev': 'win-bizdev', 'bsod': 'win-bsod', 'review': 'win-review',
+      'das': 'win-achievements', 'synergy': 'win-synergy', 'poc': 'win-poccerror',
+      'jargon': 'win-synergy', 'help': null, 'shutdown': null
+    };
+    var winId = winMap[val] ? val : nameMap[val];
+    if (winId) {
+      openWin(winId, winMap[winId]);
+    } else if (val === 'shutdown' || val === 'shutdown.exe') {
+      showShutdown();
+    } else if (val === '' || val === 'synergy.dll' || val === 'corporatejargon.dll') {
+      alert('Cannot run: ' + (val || '(empty)') + '\n\nFile not found or access denied.\nSee ACTUALWORK.EXE instead.');
+    } else {
+      alert('Cannot find \'' + val + '\'\n\nMake sure you typed the name correctly,\nor try one of the suggested commands.');
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var ri = document.getElementById('run-input');
+    if (ri) ri.addEventListener('keydown', function(e){ if(e.key==='Enter') doRun(); });
+  });
+
+  // ===== FIND =====
+  var findResults = {
+    'synergy': '> Searching C:\\WithumFY26\\...\n> synergy.dll — 0 results found.\n> (It was never there.)',
+    'corporatejargon': '> Searching C:\\WithumFY26\\...\n> corporatejargon.dll — 0 results found.\n> Good.',
+    'das': '> Searching C:\\WithumFY26\\...\n> DAS_Champion.exe — FOUND (Running since Q1)\n> DAS_Core_Platform/ — FOUND (Angular+NestJS+Python+Java)\n> DAS_RnD_AIIntegration.exe — FOUND (Running)',
+    'atish': '> Searching C:\\WithumFY26\\...\n> Atish_Naik.exe — FOUND\n> Role: Lead Consultant\n> Status: Operational\n> XP: 10,500 / 12,000',
+    'blog': '> Searching C:\\WithumFY26\\...\n> AI_Blog_Part1.doc — FOUND (Published)\n> AI_Blog_Part2.doc — FOUND (Published)\n> 2 results.',
+    'empower': '> Searching C:\\WithumFY26\\...\n> Empower_TechnicalMentor.exe — FOUND (Running weekly)\n> Empower_2026-27_Batch.result — FOUND (Guild expanded)\n> 2 results.',
+    'time': '> Searching C:\\WithumFY26\\...\n> TIME.dll — 0 results found.\n> (Required by SupplyChain_POC.exe. Not available in FY26.\n>  Try again in FY27.)',
+    'supply': '> Searching C:\\WithumFY26\\...\n> SupplyChain_POC.idea~ — FOUND\n> Status: Concept only. No executable generated.\n> Queued: C:\\FY27\\Backlog\\',
+    'xp': '> Searching C:\\WithumFY26\\...\n> XP_Total.dat — FOUND\n> Value: 10,500 / 12,000\n> Next rank: [CLASSIFIED]',
+    'promotion': '> Searching C:\\WithumFY26\\...\n> LeadConsultant_Ascension.exe — FOUND\n> Status: Complete (+3,500 XP)\n> Rank: Lead Consultant'
+  };
+  function doFind() {
+    var q = document.getElementById('find-input').value.trim().toLowerCase();
+    var result = document.getElementById('find-result');
+    if (!q) { result.innerHTML = 'Please enter a search term.'; return; }
+    var found = false;
+    for (var k in findResults) {
+      if (q.indexOf(k) > -1 || k.indexOf(q) > -1) {
+        result.innerHTML = findResults[k].replace(/\n/g, '<br>');
+        found = true; break;
+      }
+    }
+    if (!found) {
+      result.innerHTML = '> Searching C:\\WithumFY26\\...\n> \"' + q + '\" — 0 results found.<br>> (Try: synergy, das, atish, blog, empower, time, supply, xp, promotion)'.replace(/\n/g, '<br>');
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var fi = document.getElementById('find-input');
+    if (fi) fi.addEventListener('keydown', function(e){ if(e.key==='Enter') doFind(); });
+  });
+
+
+  // ===== RECYCLE BIN =====
   function restoreAlert(filename) {
     var msgs = {
       'CorporateJargon.dll': 'Restore CorporateJargon.dll?\n\nThis file served no purpose when it existed.\nIt will serve no purpose if restored.\n\n[Restore] button has been disabled for your protection.',
       'Work_Life_Balance.exe': 'Restore Work_Life_Balance.exe?\n\nOriginal installation location not found.\nHas never been found.\nCannot restore what was never fully installed.\n\nTry again in FY27. Or FY28.',
-      'Lunch_Break.lnk': 'Restore Lunch_Break.lnk?\n\nWarning: Shortcut destination does not exist.\nRestoring this file will create a shortcut to nothing.\nThis is a metaphor.\n\nRestore anyway? [Yes, I am optimistic] [No, I understand now]',
+      'Lunch_Break.lnk': 'Restore Lunch_Break.lnk?\n\nWarning: Shortcut destination does not exist.\nRestoring this file will create a shortcut to nothing.\nThis is a metaphor.',
       'TODO_Before_Standup.txt': 'Restore TODO_Before_Standup.txt?\n\nFile contents: (empty)\nLast modified: 9:58 AM\nStandup: 10:00 AM\n\nNothing to restore. Nothing was ever written.',
-      'Free_Friday_Afternoon.ics': 'Restore Free_Friday_Afternoon.ics?\n\nRecurring event: Every Friday\nStatus: Cancelled (52/52 occurrences)\nNext occurrence: Unknown\nOptimism required: High\n\nRestoring this file will not make Friday afternoons free.',
+      'Free_Friday_Afternoon.ics': 'Restore Free_Friday_Afternoon.ics?\n\nRecurring event: Every Friday\nStatus: Cancelled (52/52 occurrences)\nNext occurrence: Unknown\n\nRestoring this file will not make Friday afternoons free.',
       'Quick_DAS_Fix.bat': 'Restore Quick_DAS_Fix.bat?\n\nWarning: File is misleadingly named.\nNo fix in this file has ever been quick.\nRestoring will not change this fundamental truth.',
+      'My_Opinion_In_That_Meeting.txt': 'Restore My_Opinion_In_That_Meeting.txt?\n\nFile size: 4KB\nStatus: Written. Never shared.\n\nRestoring this file will not retroactively open it in the meeting.',
+      'Billable_Hours_Buffer.xls': 'Restore Billable_Hours_Buffer.xls?\n\nBuffer amount: 0\nReason for deletion: DAS priorities consumed it entirely.\nWe fly without a net. Restoring will not add a net.'
     };
-    var msg = msgs[filename] || 'Restore ' + filename + '?\n\nAre you sure?\nThis file was deleted for a reason.\nThe reason was good.\nThe reason still applies.\n\nRestore button: [disabled]';
+    var msg = msgs[filename] || 'Restore ' + filename + '?\n\nAre you sure?\nThis file was deleted for a reason.\nThe reason was good.\nThe reason still applies.\n\n[Restore] button: disabled.';
     alert(msg);
   }
 
