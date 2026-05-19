@@ -8,25 +8,69 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #008080; font-family: 'Courier New', monospace; min-height: 100vh; }
 
-  .desk { background: #008080; padding: 16px 16px 64px; min-height: 100vh; }
+  .desk { background: #008080; padding: 16px 16px 64px 110px; min-height: 100vh; }
 
   /* DESKTOP ICONS */
-  .desktop-icons { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; }
-  .icon-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 4px; border: 2px solid transparent; min-width: 72px; }
+  .desktop-icons {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    bottom: 52px;
+    width: auto;
+    max-width: 200px;
+    gap: 4px 6px;
+    overflow: hidden;
+    z-index: 10;
+  }
+  .icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    padding: 3px 4px;
+    border: 2px solid transparent;
+    width: 80px;
+    flex-shrink: 0;
+  }
   .icon-item:hover { background: rgba(0,0,128,0.5); border: 2px dotted #fff; }
   .icon-item:hover .icon-label { color: #fff; background: #000080; }
-  .icon-box { width: 36px; height: 36px; background: #c0c0c0; border: 2px solid; border-color: #fff #808080 #808080 #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-  .icon-label { font-size: 11px; color: #fff; text-align: center; word-break: break-word; max-width: 72px; line-height: 1.3; text-shadow: 1px 1px 0 #000; }
+  .icon-box {
+    width: 32px;
+    height: 32px;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .icon-label {
+    font-size: 10px;
+    color: #fff;
+    text-align: center;
+    word-break: break-word;
+    max-width: 76px;
+    line-height: 1.2;
+    text-shadow: 1px 1px 0 #000;
+  }
 
   /* WINDOWS */
   .win { background: #c0c0c0; border: 2px solid; border-color: #fff #808080 #808080 #fff; margin-bottom: 12px; }
-  .win-title { background: #000080; color: #fff; padding: 3px 6px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: bold; cursor: default; user-select: none; }
+  .win-title { background: #000080; color: #fff; padding: 3px 6px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: bold; cursor: default; user-select: none; position: sticky; top: 0; z-index: 10; }
+  .win-menu { background: #c0c0c0; border-bottom: 2px solid #808080; padding: 2px 0; display: flex; gap: 0; position: sticky; top: 26px; z-index: 9; }
   .win-title-left { display: flex; align-items: center; gap: 6px; }
   .win-title-icon { width: 14px; height: 14px; background: #c0c0c0; border: 1px solid #808080; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #000; }
   .win-btns { display: flex; gap: 2px; }
   .win-btn { background: #c0c0c0; border: 2px solid; border-color: #fff #808080 #808080 #fff; width: 18px; height: 15px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #000; font-family: 'Courier New', monospace; font-weight: bold; line-height: 1; }
   .win-btn:active { border-color: #808080 #fff #fff #808080; }
-  .win-menu { background: #c0c0c0; border-bottom: 2px solid #808080; padding: 2px 0; display: flex; gap: 0; }
+  
   .menu-item { padding: 2px 10px; font-size: 12px; color: #000; cursor: pointer; font-family: 'Courier New', monospace; }
   .menu-item:hover { background: #000080; color: #fff; }
   .win-body { padding: 10px; font-size: 12px; color: #000; }
@@ -101,12 +145,47 @@
   .bsod .blink { animation: blink 1s step-end infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
-  .win { display: none; }
-  .error-dialog { display: none; }
-  .bsod { display: none; }
-  .win.open { display: block; }
-  .error-dialog.open { display: block; }
-  .bsod.open { display: block; }
+  /* ===== MODAL SYSTEM ===== */
+  .win-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 8000;
+    align-items: center;
+    justify-content: center;
+  }
+  .win-overlay.open {
+    display: flex;
+  }
+  .win {
+    display: block;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
+    max-width: 680px;
+    width: 92vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.5);
+    position: relative;
+  }
+  .error-dialog {
+    display: block;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
+    max-width: 480px;
+    width: 92vw;
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.5);
+  }
+  .bsod {
+    display: block;
+    max-width: 680px;
+    width: 92vw;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
   .taskbar-btn.active { border-color: #808080 #fff #fff #808080; background: #b0b0b0; }
 
   @media (max-width: 600px) {
@@ -238,26 +317,30 @@
 <div class="desk">
 
   <!-- DESKTOP ICONS -->
-  <div style="font-size:10px;color:#fff;font-family:'Courier New',monospace;margin-bottom:6px;text-shadow:1px 1px 0 #000">&#128161; Double-click an icon to open it</div>
   <div class="desktop-icons">
     <div class="icon-item" ondblclick="openWin('win-review','tb-review')"><div class="icon-box">&#128203;</div><div class="icon-label">FY26_Review.exe</div></div>
+    <div class="icon-item" ondblclick="openWin('win-walkthrough','tb-walkthrough')"><div class="icon-box">&#128221;</div><div class="icon-label">FY26_Chronicle.exe</div></div>
+    <div class="icon-item" ondblclick="openWin('win-goalreview','tb-goalreview')"><div class="icon-box">&#9989;</div><div class="icon-label">GoalReview_FY26.exe</div></div>
     <div class="icon-item" ondblclick="openWin('win-achievements','tb-achievements')"><div class="icon-box">&#128193;</div><div class="icon-label">My Achievements</div></div>
     <div class="icon-item" ondblclick="openWin('win-projects','tb-projects')"><div class="icon-box">&#128190;</div><div class="icon-label">Projects (4)</div></div>
-    <div class="icon-item" ondblclick="openWin('win-skills','tb-skills')"><div class="icon-box">&#128202;</div><div class="icon-label">Skills.xls</div></div>
-    <div class="icon-item" ondblclick="openWin('win-synergy','tb-synergy')" title="Not required. See Team_Impact.exe instead."><div class="icon-box">&#128465;</div><div class="icon-label">CorporateJargon.dll</div><div style="font-size:9px;color:#fff;text-shadow:1px 1px 0 #000;text-align:center;max-width:72px;line-height:1.2;font-family:'Courier New',monospace">See Team_Impact.exe</div></div>
     <div class="icon-item" ondblclick="openWin('win-team','tb-team')"><div class="icon-box">&#128101;</div><div class="icon-label">Team_Impact.exe</div></div>
-    <div class="icon-item" ondblclick="openWin('win-poccerror','tb-poc')"><div class="icon-box">&#9888;</div><div class="icon-label">SupplyChain POC~</div></div>
-    <div class="icon-item" ondblclick="openWin('win-goals','tb-goals')"><div class="icon-box">&#128197;</div><div class="icon-label">FY27_Goals.lnk</div></div>
-    <div class="icon-item" ondblclick="openWin('win-niche','tb-niche')"><div class="icon-box">&#128161;</div><div class="icon-label">Niche_Initiatives.exe</div></div>
     <div class="icon-item" ondblclick="openWin('win-roles','tb-roles')"><div class="icon-box">&#127891;</div><div class="icon-label">DevRoles.exe</div></div>
+    <div class="icon-item" ondblclick="openWin('win-skills','tb-skills')"><div class="icon-box">&#128202;</div><div class="icon-label">Skills.xls</div></div>
+    <div class="icon-item" ondblclick="openWin('win-niche','tb-niche')"><div class="icon-box">&#128161;</div><div class="icon-label">Niche_Initiatives.exe</div></div>
     <div class="icon-item" ondblclick="openWin('win-recruitment','tb-recruit')"><div class="icon-box">&#127919;</div><div class="icon-label">Recruitment_Drive.exe</div></div>
     <div class="icon-item" ondblclick="openWin('win-bizdev','tb-bizdev')"><div class="icon-box">&#128188;</div><div class="icon-label">BizDev_Marketing.exe</div></div>
     <div class="icon-item" ondblclick="openWin('win-ai','tb-ai')"><div class="icon-box">&#129504;</div><div class="icon-label">AI_Journey.exe</div></div>
+    <div class="icon-item" ondblclick="openWin('win-synergy','tb-synergy')" title="Not required. See Team_Impact.exe instead."><div class="icon-box">&#128465;</div><div class="icon-label">CorporateJargon.dll</div><div style="font-size:9px;color:#fff;text-shadow:1px 1px 0 #000;text-align:center;max-width:72px;line-height:1.2;font-family:'Courier New',monospace">See Team_Impact.exe</div></div>
+    <div class="icon-item" ondblclick="openWin('win-poccerror','tb-poc')"><div class="icon-box">&#9888;</div><div class="icon-label">SupplyChain POC~</div></div>
+    <div class="icon-item" ondblclick="openWin('win-goals','tb-goals')"><div class="icon-box">&#128197;</div><div class="icon-label">FY27_Goals.lnk</div></div>
     <div class="icon-item" ondblclick="openWin('win-bsod','tb-bsod')"><div class="icon-box">&#128218;</div><div class="icon-label">BSOD_Teaser.scr</div></div>
     <div class="icon-item" ondblclick="openWin('win-recycle','tb-recycle')"><div class="icon-box">&#128465;</div><div class="icon-label">Recycle Bin<br><span style="font-size:9px">(15 items)</span></div></div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- MAIN PROPERTIES WINDOW -->
+  <div class="win-overlay" id="overlay-win-review">
   <div class="win" id="win-review">
     <div class="win-title">
       <div class="win-title-left">
@@ -265,7 +348,7 @@
         FY26_AnnualReview.exe &mdash; Atish Naik, Lead Consultant
       </div>
       <div class="win-btns">
-        <div class="win-btn">_</div>
+        <div class="win-btn" onclick="minimiseWin(this)">_</div>
         <div class="win-btn">&#9633;</div>
         <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
       </div>
@@ -319,8 +402,11 @@
       </div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- MY ACHIEVEMENTS -->
+  <div class="win-overlay" id="overlay-win-achievements">
   <div class="win" id="win-achievements">
     <div class="win-title">
       <div class="win-title-left">
@@ -328,7 +414,7 @@
         My Achievements &mdash; FY26
       </div>
       <div class="win-btns">
-        <div class="win-btn">_</div>
+        <div class="win-btn" onclick="minimiseWin(this)">_</div>
         <div class="win-btn">&#9633;</div>
         <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
       </div>
@@ -359,7 +445,7 @@
         <div class="list-item">
           <div class="li-icon">&#129504;</div>
           <div class="li-body">
-            <div class="li-name">PromptEngineering_Course.ppt (47 slides) [DELIVERED]</div>
+            <div class="li-name">PromptEngineering_Course.ppt (20+ slides) [DELIVERED]</div>
             <div class="li-sub">Delivered to India Dev team. LLMs officially demoted from "magic boxes" to "predictable engineered systems." The team has not recovered. In a good way. +2,500 XP</div>
           </div>
         </div>
@@ -406,8 +492,11 @@
       </div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- PROJECTS -->
+  <div class="win-overlay" id="overlay-win-projects">
   <div class="win" id="win-projects">
     <div class="win-title">
       <div class="win-title-left">
@@ -415,7 +504,7 @@
         Projects &mdash; C:\WithumDigital\FY26\Delivered\
       </div>
       <div class="win-btns">
-        <div class="win-btn">_</div>
+        <div class="win-btn" onclick="minimiseWin(this)">_</div>
         <div class="win-btn">&#9633;</div>
         <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
       </div>
@@ -460,8 +549,11 @@
       </div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- SKILLS -->
+  <div class="win-overlay" id="overlay-win-skills">
   <div class="win" id="win-skills">
     <div class="win-title">
       <div class="win-title-left">
@@ -469,7 +561,7 @@
         Skills.xls &mdash; Attribute Profiler v2.0
       </div>
       <div class="win-btns">
-        <div class="win-btn">_</div>
+        <div class="win-btn" onclick="minimiseWin(this)">_</div>
         <div class="win-btn">&#9633;</div>
         <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
       </div>
@@ -529,8 +621,11 @@
       </div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- SYNERGY ERROR -->
+  <div class="win-overlay" id="overlay-win-synergy">
   <div class="error-dialog" id="win-synergy">
     <div class="win-title" style="background:#808080">
       <div class="win-title-left">
@@ -558,8 +653,11 @@
       <button class="btn98" style="min-width:80px">Details...</button>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- SUPPLY CHAIN ERROR -->
+  <div class="win-overlay" id="overlay-win-poccerror">
   <div class="error-dialog" id="win-poccerror">
     <div class="win-title" style="background:#808080">
       <div class="win-title-left">
@@ -588,8 +686,11 @@
       <button class="btn98">Send Error Report</button>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- TEAM WINDOW -->
+  <div class="win-overlay" id="overlay-win-team">
   <div class="win" id="win-team">
     <div class="win-title">
       <div class="win-title-left">
@@ -597,7 +698,7 @@
         Team_Impact.exe &mdash; Party Members &amp; Contributions
       </div>
       <div class="win-btns">
-        <div class="win-btn">_</div>
+        <div class="win-btn" onclick="minimiseWin(this)">_</div>
         <div class="win-btn">&#9633;</div>
         <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
       </div>
@@ -646,8 +747,11 @@
       </div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- FY27 GOALS -->
+  <div class="win-overlay" id="overlay-win-goals">
   <div class="win" id="win-goals">
     <div class="win-title">
       <div class="win-title-left">
@@ -655,7 +759,7 @@
         FY27_Goals.lnk &mdash; Scheduled Tasks / Next Year Queue
       </div>
       <div class="win-btns">
-        <div class="win-btn">_</div>
+        <div class="win-btn" onclick="minimiseWin(this)">_</div>
         <div class="win-btn">&#9633;</div>
         <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
       </div>
@@ -709,12 +813,15 @@
       </div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- NICHE & FIRM INITIATIVES -->
+  <div class="win-overlay" id="overlay-win-niche">
   <div class="win" id="win-niche">
     <div class="win-title">
       <div class="win-title-left"><div class="win-title-icon">&#128161;</div>Niche_Initiatives.exe &mdash; Firm &amp; Innovation Contributions</div>
-      <div class="win-btns"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
+      <div class="win-btns"><div class="win-btn" onclick="minimiseWin(this)">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
     </div>
     <div class="win-menu"><span class="menu-item"><u>F</u>ile</span><span class="menu-item"><u>I</u>nnovate</span><span class="menu-item"><u>S</u>ubmit Idea</span></div>
     <div class="win-body">
@@ -729,12 +836,15 @@
       <div class="status-bar"><span class="status-panel">5 initiatives</span><span class="status-panel">All active or delivered</span><span class="status-panel">0 jargon required</span></div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- DEVELOPMENT ROLES -->
+  <div class="win-overlay" id="overlay-win-roles">
   <div class="win" id="win-roles">
     <div class="win-title">
       <div class="win-title-left"><div class="win-title-icon">&#127891;</div>DevRoles.exe &mdash; Talent Development Roles Held FY26</div>
-      <div class="win-btns"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
+      <div class="win-btns"><div class="win-btn" onclick="minimiseWin(this)">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
     </div>
     <div class="win-menu"><span class="menu-item"><u>F</u>ile</span><span class="menu-item"><u>R</u>oles</span><span class="menu-item"><u>T</u>alent</span></div>
     <div class="win-body">
@@ -750,12 +860,15 @@
       <div class="status-bar"><span class="status-panel">5 roles active</span><span class="status-panel">1&ndash;2 career prot&eacute;g&eacute;s</span><span class="status-panel">0 roles declined</span></div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- RECRUITMENT DRIVE -->
+  <div class="win-overlay" id="overlay-win-recruitment">
   <div class="win" id="win-recruitment">
     <div class="win-title">
       <div class="win-title-left"><div class="win-title-icon">&#127919;</div>Recruitment_Drive.exe &mdash; Digital Empower 2026&ndash;27 Batch</div>
-      <div class="win-btns"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
+      <div class="win-btns"><div class="win-btn" onclick="minimiseWin(this)">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
     </div>
     <div class="win-menu"><span class="menu-item"><u>F</u>ile</span><span class="menu-item"><u>E</u>valuate</span><span class="menu-item"><u>H</u>ire</span></div>
     <div class="win-body">
@@ -769,12 +882,15 @@
       <div class="status-bar"><span class="status-panel">2 days attended</span><span class="status-panel">1 toolkit built &amp; live</span><span class="status-panel">New batch: selected</span></div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- BUSINESS DEVELOPMENT -->
+  <div class="win-overlay" id="overlay-win-bizdev">
   <div class="win" id="win-bizdev">
     <div class="win-title">
       <div class="win-title-left"><div class="win-title-icon">&#128188;</div>BizDev_Marketing.exe &mdash; Business Development &amp; Thought Leadership</div>
-      <div class="win-btns"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
+      <div class="win-btns"><div class="win-btn" onclick="minimiseWin(this)">_</div><div class="win-btn">&#9633;</div><div class="win-btn" onclick="closeWin(this)">&#x2715;</div></div>
     </div>
     <div class="win-menu"><span class="menu-item"><u>F</u>ile</span><span class="menu-item"><u>P</u>ublish</span><span class="menu-item"><u>G</u>row Pipeline</span></div>
     <div class="win-body">
@@ -789,8 +905,11 @@
       <div class="status-bar"><span class="status-panel">2 articles published</span><span class="status-panel">Billable: ~80% of target</span><span class="status-panel">Pipeline: AI blogs as asset</span></div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- FY27 BSOD TEASER -->
+  <div class="win-overlay" id="overlay-win-bsod">
   <div class="bsod" id="win-bsod">
     <h3>WithumOS 98 &mdash; Season Finale Screen</h3>
     <p>A fatal exception FY26 has occurred at 0028:C0011E36 in VXD DAS(01) + 00010E36.<br>
@@ -831,6 +950,8 @@
           <div class="sm-sub-item" onclick="closeStart();openWin('win-bizdev','tb-bizdev')"><span class="sm-sub-item-icon">&#128188;</span>BizDev_Marketing.exe</div>
           <div class="sm-sub-item" onclick="closeStart();openWin('win-goals','tb-goals')"><span class="sm-sub-item-icon">&#128197;</span>FY27_Goals.lnk</div>
           <div class="sm-sub-item" onclick="closeStart();openWin('win-ai','tb-ai')"><span class="sm-sub-item-icon">&#129504;</span>AI_Journey_FY26.exe</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-walkthrough','tb-walkthrough')"><span class="sm-sub-item-icon">&#128221;</span>FY26_Chronicle.exe</div>
+          <div class="sm-sub-item" onclick="closeStart();openWin('win-goalreview','tb-goalreview')"><span class="sm-sub-item-icon">&#9989;</span>GoalReview_FY26.exe</div>
           <div class="sm-sub-item" onclick="closeStart();openWin('win-bsod','tb-bsod')"><span class="sm-sub-item-icon">&#128218;</span>BSOD_Teaser.scr</div>
           <hr class="sm-divider">
           <div class="sm-sub-item" onclick="closeStart();openWin('win-synergy','tb-synergy')"><span class="sm-sub-item-icon">&#128465;</span>CorporateJargon.dll [ERR]</div>
@@ -898,7 +1019,7 @@
       </div>
       <div style="margin-bottom:4px">Open:</div>
       <input class="dialog-field" id="run-input" placeholder="e.g. win-achievements" />
-      <div style="font-size:10px;color:#555;margin-top:4px">Try: win-achievements, win-team, win-skills, win-projects, win-goals, win-niche, win-roles, win-recruitment, win-bizdev, win-bsod</div>
+      <div style="font-size:10px;color:#555;margin-top:4px">Try: win-achievements, win-team, win-skills, win-projects, win-goals, win-goalreview, win-niche, win-roles, win-recruitment, win-bizdev, win-ai, win-bsod</div>
       <div class="dialog-btns">
         <button class="dialog-btn" onclick="doRun()">OK</button>
         <button class="dialog-btn" onclick="document.getElementById('run-dialog').classList.remove('open')">Cancel</button>
@@ -975,8 +1096,11 @@
       </div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- AI JOURNEY -->
+  <div class="win-overlay" id="overlay-win-ai">
   <div class="win" id="win-ai">
     <div class="win-title">
       <div class="win-title-left">
@@ -984,7 +1108,7 @@
         AI_Journey_FY26.exe &mdash; A Year in Two Acts
       </div>
       <div class="win-btns">
-        <div class="win-btn">_</div>
+        <div class="win-btn" onclick="minimiseWin(this)">_</div>
         <div class="win-btn">&#9633;</div>
         <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
       </div>
@@ -1064,8 +1188,331 @@
       </div>
     </div>
   </div>
+</div><!-- /overlay -->
+
+
+  <!-- YEAR WALKTHROUGH -->
+  <div class="win-overlay" id="overlay-win-walkthrough">
+  <div class="win" id="win-walkthrough">
+    <div class="win-title">
+      <div class="win-title-left">
+        <div class="win-title-icon">&#128221;</div>
+        FY26_Chronicle.exe &mdash; The Year in Full &mdash; Atish Naik
+      </div>
+      <div class="win-btns">
+        <div class="win-btn" onclick="minimiseWin(this)">_</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="win-menu">
+      <span class="menu-item"><u>F</u>ile</span>
+      <span class="menu-item"><u>N</u>avigate</span>
+      <span class="menu-item"><u>V</u>iew Timeline</span>
+    </div>
+    <div class="win-body">
+      <div style="font-size:11px;color:#000;margin-bottom:12px;font-family:'Courier New'">C:\Withum\FY26\Chronicle\walkthrough.log &mdash; Full narrative, May 2025 &ndash; April 2026</div>
+
+      <!-- CHAPTER 1 -->
+      <div style="background:#000080;color:#fff;padding:5px 10px;font-family:'Courier New';font-size:11px;margin-bottom:1px;display:flex;align-items:center;gap:8px">
+        <span>&#9646;</span>
+        <strong>CHAPTER I &mdash; The Ascension &mdash; May 2025</strong>
+      </div>
+      <div style="background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:10px;margin-bottom:10px;font-family:'Courier New';font-size:11px;line-height:1.9;color:#000">
+        The year started with a title change. <strong>Lead Consultant.</strong> No fanfare. No transition period. Just a new label and the same desk.<br><br>
+        What the title meant in practice was a shift in how ownership worked. Not waiting to be assigned. Not waiting for a clear brief. Taking things that mattered and making them yours &mdash; even when nobody asked.<br><br>
+        That instinct shaped everything that followed.
+      </div>
+
+      <!-- CHAPTER 2 -->
+      <div style="background:#000080;color:#fff;padding:5px 10px;font-family:'Courier New';font-size:11px;margin-bottom:1px;display:flex;align-items:center;gap:8px">
+        <span>&#9646;</span>
+        <strong>CHAPTER II &mdash; DAS Ownership &mdash; May to October 2025</strong>
+      </div>
+      <div style="background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:10px;margin-bottom:10px;font-family:'Courier New';font-size:11px;line-height:1.9;color:#000">
+        The first half of FY26 was DAS. Fully, heavily, completely DAS.<br><br>
+        <strong>What ownership looked like:</strong><br>
+        &gt; Procedures, risk publishing microservice, reference copy, checklists &mdash; taken on without being asked<br>
+        &gt; Deep code-level understanding of DAS complexity and architecture<br>
+        &gt; Documentation created and maintained to improve maintainability across the team<br>
+        &gt; Realistic expectations set with clients and peers &mdash; no over-promising<br><br>
+        <strong>The AI initiative nobody assigned:</strong><br>
+        Alongside the core DAS work, a self-driven exploration began &mdash; how do you actually use AI effectively in a real development workflow? Not theory. Not demos. Actual day-to-day integration.<br><br>
+        &gt; Experimented with AI in development, unit testing, and automation<br>
+        &gt; Created <strong>spec files</strong> as structured guidelines for getting consistent, high-quality output from AI models<br>
+        &gt; Explored what it takes to extract maximum value from AI tools when the models were still finding their footing<br>
+        &gt; This was early-phase AI &mdash; promising, inconsistent, worth figuring out<br><br>
+        This work became the foundation. The Prompt Engineering course, the AI learning paths, the team adoption strategy &mdash; all of it grew from this quiet, self-initiated phase.
+      </div>
+
+      <!-- CHAPTER 3 -->
+      <div style="background:#000080;color:#fff;padding:5px 10px;font-family:'Courier New';font-size:11px;margin-bottom:1px;display:flex;align-items:center;gap:8px">
+        <span>&#9646;</span>
+        <strong>CHAPTER III &mdash; Mentoring &amp; The Empower Shift &mdash; Throughout FY26</strong>
+      </div>
+      <div style="background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:10px;margin-bottom:10px;font-family:'Courier New';font-size:11px;line-height:1.9;color:#000">
+        Mentoring was not a side task. It ran in parallel with everything else, every week.<br><br>
+        <strong>New Empowers &mdash; first principles first:</strong><br>
+        &gt; Weekly connect sessions focused on how to think, not just what to do<br>
+        &gt; Architectural logic, first-principles reasoning, ownership mindset<br>
+        &gt; The goal: engineers who analyse and own their solutions rather than follow a roadmap<br><br>
+        <strong>The deliberate leadership shift with previous Empowers:</strong><br>
+        The PO Portfolio Dashboard project was used intentionally as a proving ground. The previous Empower cohort was pushed to move from implementing solutions to <strong>guiding and overseeing</strong> them. The new cohort became the implementers. The old cohort became the mentors.<br><br>
+        &gt; Old Empowers: shifted from doing to leading and reviewing<br>
+        &gt; New Empowers: took on implementation with guidance from peers, not just seniors<br>
+        &gt; The result: a mentorship chain that didn't depend entirely on Atish to function<br><br>
+        This was deliberate. Leadership that replicates itself is more valuable than leadership that is required.
+      </div>
+
+      <!-- CHAPTER 4 -->
+      <div style="background:#000080;color:#fff;padding:5px 10px;font-family:'Courier New';font-size:11px;margin-bottom:1px;display:flex;align-items:center;gap:8px">
+        <span>&#9646;</span>
+        <strong>CHAPTER IV &mdash; AI Unlocks &mdash; October 2025 Onwards</strong>
+      </div>
+      <div style="background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:10px;margin-bottom:10px;font-family:'Courier New';font-size:11px;line-height:1.9;color:#000">
+        Around October 2025, something shifted. The models crossed a threshold.<br><br>
+        Code became cheap. Execution became fast. The only thing that mattered was <strong>what to build and how effectively you used the tools.</strong><br><br>
+        The workflow evolved with it:<br>
+        &gt; <strong>Agentic AI exploration</strong> &mdash; moving beyond prompts to agent-based systems<br>
+        &gt; <strong>MCP (Model Context Protocol)</strong> &mdash; explored integrations with Jira and GitHub to improve development workflows directly<br>
+        &gt; <strong>Token efficiency</strong> &mdash; actively worked on reducing token consumption. Explored approaches like Caveman (a deeply personal area of interest &mdash; doing more with less context)<br>
+        &gt; <strong>Spec Driven Development</strong> &mdash; drove adoption across the team; specs as the structured interface between human intent and AI output<br><br>
+        <strong>What got shipped during this phase:</strong><br>
+        &gt; <strong>QA Gen Tool</strong> &mdash; AI-powered test case and bug management through Jira API (Python + AI-Based System Design)<br>
+        &gt; <strong>Interview Toolkit</strong> &mdash; built and deployed for the Digital Empower 2026-27 recruitment drive<br>
+        &gt; <strong>This Year End Review site</strong> &mdash; vibe-coded. You are inside it right now.<br><br>
+        The constraint was never the code. It was always the ideas.
+      </div>
+
+      <!-- CHAPTER 5 -->
+      <div style="background:#000080;color:#fff;padding:5px 10px;font-family:'Courier New';font-size:11px;margin-bottom:1px;display:flex;align-items:center;gap:8px">
+        <span>&#9646;</span>
+        <strong>CHAPTER V &mdash; Ideas in Progress &mdash; The Thoughts That Followed</strong>
+      </div>
+      <div style="background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:10px;margin-bottom:10px;font-family:'Courier New';font-size:11px;line-height:1.9;color:#000">
+        When execution gets fast, ideas multiply. Not all of them land. That's the point.<br><br>
+        <strong>Ideas being explored or in progress:</strong><br><br>
+        &gt; <strong>DOM-aware automation via MCP</strong><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Fetch live UI DOM through MCP so that writing automation tests no longer requires manually copying DOM structure into prompts. Similar in spirit to what Playwright MCP does &mdash; but the goal is to go further: make it more efficient, produce higher quality results, and deliver more value than the existing approach.<br><br>
+        &gt; <strong>Virtual Scrum Master</strong><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;An AI-assisted system to reduce the operational burden on Scrum Masters &mdash; automating routine facilitation, tracking, and reporting so SMs can focus on what actually needs human judgment.<br><br>
+        &gt; <strong>Deeper token efficiency work (Caveman approach)</strong><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Continuing to find ways to do more with less context. Smaller, more targeted prompts. Leaner workflows. The less you give an AI model unnecessarily, the more reliable and cheaper the output.<br><br>
+        These are not finished products. They are directions. The fact that they exist is the relevant data point &mdash; fast execution creates space for more thinking, and more thinking creates more directions worth pursuing.
+      </div>
+
+      <!-- CHAPTER 6 -->
+      <div style="background:#000080;color:#fff;padding:5px 10px;font-family:'Courier New';font-size:11px;margin-bottom:1px;display:flex;align-items:center;gap:8px">
+        <span>&#9646;</span>
+        <strong>CHAPTER VI &mdash; Leading by Example &mdash; The Full Picture</strong>
+      </div>
+      <div style="background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:10px;margin-bottom:10px;font-family:'Courier New';font-size:11px;line-height:1.9;color:#000">
+        The Lead Consultant role was never going to be about title. It was always going to be about what you do when the camera is off.<br><br>
+        <strong>What that looked like across FY26:</strong><br>
+        &gt; DAS: took ownership of the hard, unglamorous parts &mdash; and made them well-understood and documented<br>
+        &gt; AI: initiated and drove adoption before it was a priority, built the learning infrastructure, then shipped real tools when the models were ready<br>
+        &gt; Mentoring: ran weekly sessions, built a self-replicating mentorship chain via the Empower cohort model<br>
+        &gt; Spec Driven Development: explored, adopted, shared, pushed for org-wide uptake<br>
+        &gt; AI Architecture: explored patterns and shared findings to help the team make better technical decisions<br>
+        &gt; Non-DAS projects: QA Gen, Interview Toolkit, Year End Site &mdash; shipped with AI, not despite the DAS workload but in the time that remained<br><br>
+        The clearest signal of a lead is not what they do when they are asked. It is what they do when they are not.
+      </div>
+
+      <!-- CLOSING -->
+      <div style="background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;padding:10px;font-family:'Courier New';font-size:11px;line-height:1.8;color:#000">
+        <strong>FY26 in one line:</strong><br>
+        Took ownership. Built foundations. Shipped things that didn't exist before. Helped others grow. Ran out of time before running out of ideas. That's the right problem to have.
+      </div>
+
+      <div class="status-bar">
+        <span class="status-panel">6 chapters</span>
+        <span class="status-panel">1 full fiscal year</span>
+        <span class="status-panel">0 chapters ghostwritten</span>
+      </div>
+    </div>
+  </div>
+</div><!-- /overlay -->
+
+
+  <!-- GOAL REVIEW -->
+  <div class="win-overlay" id="overlay-win-goalreview">
+  <div class="win" id="win-goalreview">
+    <div class="win-title">
+      <div class="win-title-left">
+        <div class="win-title-icon">&#9989;</div>
+        GoalReview_FY26.exe &mdash; Annual Goal Assessment Report
+      </div>
+      <div class="win-btns">
+        <div class="win-btn" onclick="minimiseWin(this)">_</div>
+        <div class="win-btn">&#9633;</div>
+        <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
+      </div>
+    </div>
+    <div class="win-menu">
+      <span class="menu-item"><u>F</u>ile</span>
+      <span class="menu-item"><u>A</u>nalyse</span>
+      <span class="menu-item"><u>E</u>xport Report</span>
+    </div>
+    <div class="win-body">
+      <div style="font-size:11px;color:#000;margin-bottom:10px;font-family:'Courier New'">C:\Withum\FY26\Goals\assessment.log &mdash; 8 goals evaluated &mdash; FY26 (May 2025 &ndash; April 2026)</div>
+
+      <!-- SUMMARY BAR -->
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+        <div style="background:#d4edda;border:2px solid;border-color:#888 #fff #fff #888;padding:5px 12px;font-family:'Courier New';font-size:11px;color:#155724;font-weight:bold">&#9989; ACHIEVED: 6</div>
+        <div style="background:#fff3cd;border:2px solid;border-color:#888 #fff #fff #888;padding:5px 12px;font-family:'Courier New';font-size:11px;color:#856404;font-weight:bold">&#9888; PARTIAL: 1</div>
+        <div style="background:#f8d7da;border:2px solid;border-color:#888 #fff #fff #888;padding:5px 12px;font-family:'Courier New';font-size:11px;color:#721c24;font-weight:bold">&#10060; MISSED: 1</div>
+      </div>
+
+      <!-- GOAL ROWS -->
+      <div class="list98">
+
+        <!-- GOAL 1 - ACHIEVED -->
+        <div class="list-item" style="border-left:4px solid #28a745">
+          <div class="li-icon">&#9989;</div>
+          <div class="li-body">
+            <div class="li-name">AI Blog Series &mdash; Solo/Senior Developer + Azure AI</div>
+            <div class="li-sub">
+              <span style="background:#d4edda;padding:1px 6px;font-size:10px;color:#155724;font-weight:bold">ACHIEVED</span>
+              &nbsp;Due: Sep 30, 2025 &nbsp;|&nbsp; Self-reported: 100%<br>
+              <strong>Target:</strong> Write and publish AI blog content strengthening Withum thought leadership.<br>
+              <strong>Outcome:</strong> Two-part blog series submitted: "From Legacy to Leading Edge: ROI of AI Modernization" Parts 1 &amp; 2. C-level audience. Submission complete. Publication pending.<br>
+              <strong>Honest take:</strong> Delivered on intent and effort. Submitted counts. Not yet published — beyond your control.
+            </div>
+          </div>
+        </div>
+
+        <!-- GOAL 2 - PARTIAL -->
+        <div class="list-item" style="border-left:4px solid #ffc107">
+          <div class="li-icon">&#9888;</div>
+          <div class="li-body">
+            <div class="li-name">AI Prototype/POC for Supply Chain Management</div>
+            <div class="li-sub">
+              <span style="background:#fff3cd;padding:1px 6px;font-size:10px;color:#856404;font-weight:bold">PARTIAL</span>
+              &nbsp;Due: Dec 31, 2025 &nbsp;|&nbsp; Self-reported: 100%<br>
+              <strong>Target:</strong> Build an AI-driven inventory management POC using NLSQL capabilities.<br>
+              <strong>Outcome:</strong> Concept structured, workflow designed, exec deck built. Development not started — DAS priorities took over.<br>
+              <strong>Honest take:</strong> The ideation and architecture phase was genuinely completed. But "prototype" implies working code, and that never happened. Marked 100% in the form — realistically it was Phase 1 of 3. The idea is solid. The runway was built. The plane didn't take off in FY26.
+            </div>
+          </div>
+        </div>
+
+        <!-- GOAL 3 - ACHIEVED -->
+        <div class="list-item" style="border-left:4px solid #28a745">
+          <div class="li-icon">&#9989;</div>
+          <div class="li-body">
+            <div class="li-name">Continuous Learning of System Design</div>
+            <div class="li-sub">
+              <span style="background:#d4edda;padding:1px 6px;font-size:10px;color:#155724;font-weight:bold">ACHIEVED</span>
+              &nbsp;Due: Dec 31, 2025 &nbsp;|&nbsp; Self-reported: 100%<br>
+              <strong>Target:</strong> Advance architectural depth across distributed systems and cloud-native patterns.<br>
+              <strong>Outcome:</strong> Analysed event-driven architecture, CQRS, serverless design. Authored internal technical blog. Led India Dev sessions. Pivoted toward AI-first architecture patterns (agent-based, context engineering, MCP).<br>
+              <strong>Honest take:</strong> Genuinely delivered — and went further by connecting system design to AI-native architectures. The learning was continuous and practical.
+            </div>
+          </div>
+        </div>
+
+        <!-- GOAL 4 - ACHIEVED -->
+        <div class="list-item" style="border-left:4px solid #28a745">
+          <div class="li-icon">&#9989;</div>
+          <div class="li-body">
+            <div class="li-name">DAS Champion</div>
+            <div class="li-sub">
+              <span style="background:#d4edda;padding:1px 6px;font-size:10px;color:#155724;font-weight:bold">ACHIEVED</span>
+              &nbsp;Due: Dec 31, 2025 &nbsp;|&nbsp; Self-reported: 100%<br>
+              <strong>Target:</strong> Take ownership of core DAS infrastructure components and deepen domain expertise.<br>
+              <strong>Outcome:</strong> Owned procedures, risk publishing microservice, reference copy, and checklists. Created and maintained documentation. Provided informed opinions to clients and peers. Set realistic expectations.<br>
+              <strong>Honest take:</strong> Fully delivered — and still running. Nobody asked for all of it. That's what makes it genuine ownership.
+            </div>
+          </div>
+        </div>
+
+        <!-- GOAL 5 - ACHIEVED -->
+        <div class="list-item" style="border-left:4px solid #28a745">
+          <div class="li-icon">&#9989;</div>
+          <div class="li-body">
+            <div class="li-name">Identify and Document Emerging AI Best Practices / Patterns</div>
+            <div class="li-sub">
+              <span style="background:#d4edda;padding:1px 6px;font-size:10px;color:#155724;font-weight:bold">ACHIEVED</span>
+              &nbsp;Due: Dec 31, 2025 &nbsp;|&nbsp; Self-reported: 100%<br>
+              <strong>Target:</strong> Build structured AI learning paths and document emerging patterns for the team.<br>
+              <strong>Outcome:</strong> Structured learning paths built. Prompt Engineering course delivered. Agent patterns, MCP, context engineering explored and shared. QA automation framework foundations laid. AI Development Roadmap groundwork established.<br>
+              <strong>Honest take:</strong> Overdelivered. The original goal was documentation — it became a full training programme and adoption strategy.
+            </div>
+          </div>
+        </div>
+
+        <!-- GOAL 6 - ACHIEVED -->
+        <div class="list-item" style="border-left:4px solid #28a745">
+          <div class="li-icon">&#9989;</div>
+          <div class="li-body">
+            <div class="li-name">Successfully Transition Into Lead Consultant Role</div>
+            <div class="li-sub">
+              <span style="background:#d4edda;padding:1px 6px;font-size:10px;color:#155724;font-weight:bold">ACHIEVED</span>
+              &nbsp;Due: May 31, 2026 &nbsp;|&nbsp; Self-reported: 100%<br>
+              <strong>Target:</strong> Fully embody the responsibilities of a Lead Consultant.<br>
+              <strong>Outcome:</strong> Technical leadership, AI adoption strategy, Empower mentorship, DAS ownership, cross-team collaboration, first-principles coaching — all active simultaneously. Team dynamic shifted from task execution to proactive problem-solving.<br>
+              <strong>Honest take:</strong> This wasn't a transition that happened on a date. It was a series of decisions to own things nobody assigned. That's the most honest version of this achievement.
+            </div>
+          </div>
+        </div>
+
+        <!-- GOAL 7 - MISSED -->
+        <div class="list-item" style="border-left:4px solid #dc3545">
+          <div class="li-icon">&#10060;</div>
+          <div class="li-body">
+            <div class="li-name">1,800 Billable Hours</div>
+            <div class="li-sub">
+              <span style="background:#f8d7da;padding:1px 6px;font-size:10px;color:#721c24;font-weight:bold">NOT MET</span>
+              &nbsp;Due: N/A &nbsp;|&nbsp; Self-reported: 80%<br>
+              <strong>Target:</strong> 1,800 billable hours through DAS project contributions.<br>
+              <strong>Outcome:</strong> ~80% of target achieved. Approximately 1,440 hours billed.<br>
+              <strong>What contributed to the gap:</strong> Significant non-billable time invested in AI learning strategy, Prompt Engineering training, Empower mentorship, recruitment drive, blog writing, and firm initiatives — all of which were high-value but non-billable.<br>
+              <strong>Honest take:</strong> The hours gap is real. So is the reason. The non-billable contributions this year were not small. Whether that trade-off was right is worth discussing — but it was not accidental.
+            </div>
+          </div>
+        </div>
+
+        <!-- GOAL 8 - ACHIEVED -->
+        <div class="list-item" style="border-left:4px solid #28a745">
+          <div class="li-icon">&#9989;</div>
+          <div class="li-body">
+            <div class="li-name">Amplifying Value Through Cross-Functional Engagement</div>
+            <div class="li-sub">
+              <span style="background:#d4edda;padding:1px 6px;font-size:10px;color:#155724;font-weight:bold">ACHIEVED</span>
+              &nbsp;Due: Dec 31, 2025 &nbsp;|&nbsp; Self-reported: 100%<br>
+              <strong>Target:</strong> Provide value beyond primary DAS assignment through cross-team collaboration.<br>
+              <strong>Outcome:</strong> GHS project technical oversight and knowledge transfer. Co-architected PO Portfolio Dashboard with Nandini, Saurabh, Abhishek, Nisarg. Led AI QA workflow modernisation. Contributed to Interview Toolkit and recruitment drive.<br>
+              <strong>Honest take:</strong> Delivered across multiple teams simultaneously while maintaining DAS as primary focus. That's the definition of this goal.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- OVERALL ASSESSMENT -->
+      <div style="background:#f0f0f0;border:2px solid;border-color:#808080 #fff #fff #808080;padding:10px;margin-top:10px;font-family:'Courier New';font-size:11px;line-height:1.8">
+        <div style="font-weight:bold;margin-bottom:6px">&#9997; Overall FY26 Assessment:</div>
+        <div>Goals fully met: <strong>6 / 8</strong> &nbsp;(75%)</div>
+        <div>Goals partially met: <strong>1 / 8</strong> &nbsp;(Supply Chain POC — ideation only)</div>
+        <div>Goals not met: <strong>1 / 8</strong> &nbsp;(Billable hours — 80% achieved)</div>
+        <br>
+        <div style="color:#555">The billable hours gap is the only clean miss. Everything else was either delivered or exceeded scope.<br>
+        The Supply Chain POC is an honest partial — the concept phase was done well, the code phase was not. Both are true.<br>
+        The AI journey this year was not in any of the original goals. It happened anyway. That matters.</div>
+      </div>
+
+      <div class="status-bar">
+        <span class="status-panel">8 goals</span>
+        <span class="status-panel">6 achieved · 1 partial · 1 missed</span>
+        <span class="status-panel">Overall: 75% clean delivery</span>
+      </div>
+    </div>
+  </div>
+</div><!-- /overlay -->
+
 
   <!-- RECYCLE BIN -->
+  <div class="win-overlay" id="overlay-win-recycle">
   <div class="win" id="win-recycle">
     <div class="win-title">
       <div class="win-title-left">
@@ -1073,7 +1520,7 @@
         Recycle Bin &mdash; C:\WINDOWS\RECYCLED\FY26\
       </div>
       <div class="win-btns">
-        <div class="win-btn">_</div>
+        <div class="win-btn" onclick="minimiseWin(this)">_</div>
         <div class="win-btn">&#9633;</div>
         <div class="win-btn" onclick="closeWin(this)">&#x2715;</div>
       </div>
@@ -1204,25 +1651,15 @@
       </div>
     </div>
   </div>
+</div><!-- /overlay -->
+
 
   <!-- TASKBAR -->
   <div class="taskbar">
     <button class="start-btn" onclick="toggleStart()">&#127381; Start</button>
-    <div class="taskbar-btn" id="tb-review" onclick="openWin('win-review','tb-review')">&#128203; FY26_Review.exe</div>
-    <div class="taskbar-btn" id="tb-achievements" onclick="openWin('win-achievements','tb-achievements')">&#128193; Achievements</div>
-    <div class="taskbar-btn" id="tb-projects" onclick="openWin('win-projects','tb-projects')">&#128190; Projects</div>
-    <div class="taskbar-btn" id="tb-skills" onclick="openWin('win-skills','tb-skills')">&#128202; Skills.xls</div>
-    <div class="taskbar-btn" id="tb-team" onclick="openWin('win-team','tb-team')">&#128101; Team</div>
-    <div class="taskbar-btn" id="tb-synergy" onclick="openWin('win-synergy','tb-synergy')">&#128465; Jargon.dll [ERR]</div>
-    <div class="taskbar-btn" id="tb-poc" onclick="openWin('win-poccerror','tb-poc')">&#9888; POC~</div>
-    <div class="taskbar-btn" id="tb-goals" onclick="openWin('win-goals','tb-goals')">&#128197; FY27</div>
-    <div class="taskbar-btn" id="tb-niche" onclick="openWin('win-niche','tb-niche')">&#128161; Niche</div>
-    <div class="taskbar-btn" id="tb-roles" onclick="openWin('win-roles','tb-roles')">&#127891; Roles</div>
-    <div class="taskbar-btn" id="tb-recruit" onclick="openWin('win-recruitment','tb-recruit')">&#127919; Recruit</div>
-    <div class="taskbar-btn" id="tb-bizdev" onclick="openWin('win-bizdev','tb-bizdev')">&#128188; BizDev</div>
-    <div class="taskbar-btn" id="tb-ai" onclick="openWin('win-ai','tb-ai')">&#129504; AI Journey</div>
-    <div class="taskbar-btn" id="tb-bsod" onclick="openWin('win-bsod','tb-bsod')">&#128218; BSOD</div>
-    <div class="taskbar-btn" id="tb-recycle" onclick="openWin('win-recycle','tb-recycle')">&#128465; Recycle (15)</div>
+    <div class="taskbar-btn" id="tb-walkthrough" onclick="openWin('win-walkthrough','tb-walkthrough')">&#128221; Chronicle</div>
+    <div class="taskbar-btn" id="tb-goalreview" onclick="openWin('win-goalreview','tb-goalreview')">&#9989; Goal Review</div>
+    <div id="minimised-area" style="display:flex;gap:4px;flex-wrap:nowrap;overflow:hidden;flex:1"></div>
     <div class="taskbar-clock" id="win98-clock">12:00 PM</div>
   </div>
 
@@ -1231,30 +1668,33 @@
 
 <script>
   function openWin(winId, tbId) {
-    var el = document.getElementById(winId);
-    if (!el) return;
-    var isOpen = el.classList.contains('open');
+    var overlay = document.getElementById('overlay-' + winId);
+    if (!overlay) return;
+    var isOpen = overlay.classList.contains('open');
     if (isOpen) {
-      el.classList.remove('open');
+      overlay.classList.remove('open');
       if (tbId) { var tb = document.getElementById(tbId); if (tb) tb.classList.remove('active'); }
     } else {
-      el.classList.add('open');
+      overlay.classList.add('open');
       if (tbId) { var tb = document.getElementById(tbId); if (tb) tb.classList.add('active'); }
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      animateBars(el);
+      var win = document.getElementById(winId);
+      if (win) animateBars(win);
     }
   }
 
   function closeWin(btn) {
     var el = btn.closest('.win') || btn.closest('.error-dialog') || btn.closest('.bsod');
     if (!el) return;
-    el.classList.remove('open');
-    var id = el.id;
-    document.querySelectorAll('.taskbar-btn').forEach(function(tb) {
-      if (tb.getAttribute('onclick') && tb.getAttribute('onclick').indexOf(id) > -1) {
-        tb.classList.remove('active');
-      }
-    });
+    var overlay = el.closest('.win-overlay');
+    if (overlay) {
+      overlay.classList.remove('open');
+      var id = el.id;
+      document.querySelectorAll('.taskbar-btn').forEach(function(tb) {
+        if (tb.getAttribute('onclick') && tb.getAttribute('onclick').indexOf(id) > -1) {
+          tb.classList.remove('active');
+        }
+      });
+    }
   }
 
   function animateBars(container) {
@@ -1399,6 +1839,15 @@
       });
     }
     runBoot();
+    // Close modal on backdrop click
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('win-overlay')) {
+        e.target.classList.remove('open');
+        document.querySelectorAll('.taskbar-btn.active').forEach(function(tb) {
+          tb.classList.remove('active');
+        });
+      }
+    });
   });
 
 
@@ -1431,6 +1880,8 @@
       'win-recruitment': 'tb-recruit', 'win-bizdev': 'tb-bizdev',
       'win-bsod': 'tb-bsod',
       'win-ai': 'tb-ai',
+      'win-walkthrough': 'tb-walkthrough',
+      'win-goalreview': 'tb-goalreview',
       'win-recycle': 'tb-recycle'
     };
     var nameMap = {
@@ -1468,6 +1919,8 @@
     'time': '> Searching C:\\WithumFY26\\...\n> TIME.dll — 0 results found.\n> (Required by SupplyChain_POC.exe. Not available in FY26.\n>  Try again in FY27.)',
     'supply': '> Searching C:\\WithumFY26\\...\n> SupplyChain_POC.idea~ — FOUND\n> Status: Concept only. No executable generated.\n> Queued: C:\\FY27\\Backlog\\',
     'xp': '> Searching C:\\WithumFY26\\...\n> XP_Total.dat — FOUND\n> Value: 10,500 / 12,000\n> Next rank: [CLASSIFIED]',
+    'chronicle': '> Searching C:\\WithumFY26\\Chronicle\\...\n> FY26_Chronicle.exe — FOUND\n> 6 chapters. Full year narrative.\n> From: Ascension (May 2025)\n> To: Ideas still running (April 2026)',
+    'goals': '> Searching C:\\WithumFY26\\Goals\\...\n> GoalReview_FY26.exe — FOUND\n> 8 goals evaluated\n> Achieved: 6 | Partial: 1 | Missed: 1\n> Overall delivery: 75% clean',
     'ai': '> Searching C:\\WithumFY26\\AI_Usage\\...\n> AI_Journey_FY26.exe — FOUND\n> Phase 1 (Jun-Oct): Foundation. Phase 2 (Oct+): Ignition.\n> Tools shipped: QA Gen + Interview Toolkit + Year End Site\n> Bottleneck: Ideas only.',
     'promotion': '> Searching C:\\WithumFY26\\...\n> LeadConsultant_Ascension.exe — FOUND\n> Status: Complete (+3,500 XP)\n> Rank: Lead Consultant'
   };
@@ -1506,6 +1959,64 @@
     };
     var msg = msgs[filename] || 'Restore ' + filename + '?\n\nAre you sure?\nThis file was deleted for a reason.\nThe reason was good.\nThe reason still applies.\n\n[Restore] button: disabled.';
     alert(msg);
+  }
+
+
+  // ===== MINIMISE SYSTEM =====
+  var winTitles = {
+    'win-review':      '&#128203; FY26 Review',
+    'win-achievements':'&#128193; Achievements',
+    'win-projects':    '&#128190; Projects',
+    'win-skills':      '&#128202; Skills.xls',
+    'win-synergy':     '&#128465; Jargon.dll',
+    'win-poccerror':   '&#9888; POC~',
+    'win-team':        '&#128101; Team Impact',
+    'win-goals':       '&#128197; FY27 Goals',
+    'win-niche':       '&#128161; Niche',
+    'win-roles':       '&#127891; Dev Roles',
+    'win-recruitment': '&#127919; Recruitment',
+    'win-bizdev':      '&#128188; BizDev',
+    'win-bsod':        '&#128218; BSOD',
+    'win-ai':          '&#129504; AI Journey',
+    'win-walkthrough': '&#128221; Chronicle',
+    'win-goalreview':  '&#9989; Goal Review',
+    'win-recycle':     '&#128465; Recycle Bin'
+  };
+
+  function minimiseWin(btn) {
+    var win = btn.closest('.win') || btn.closest('.error-dialog') || btn.closest('.bsod');
+    if (!win) return;
+    var overlay = win.closest('.win-overlay');
+    if (!overlay) return;
+    var winId = win.id;
+
+    // Hide overlay (minimise)
+    overlay.classList.remove('open');
+
+    // Don't add a second taskbar button if already minimised
+    if (document.getElementById('min-' + winId)) return;
+
+    // Create taskbar minimised button
+    var area = document.getElementById('minimised-area');
+    var btn2 = document.createElement('div');
+    btn2.className = 'taskbar-btn';
+    btn2.id = 'min-' + winId;
+    btn2.style.borderColor = '#808080 #fff #fff #808080';
+    btn2.style.background = '#b0b0b0';
+    btn2.innerHTML = winTitles[winId] || winId;
+    btn2.onclick = function() { restoreWin(winId); };
+    area.appendChild(btn2);
+  }
+
+  function restoreWin(winId) {
+    var overlay = document.getElementById('overlay-' + winId);
+    if (overlay) overlay.classList.add('open');
+    // Remove minimised button
+    var minBtn = document.getElementById('min-' + winId);
+    if (minBtn) minBtn.parentNode.removeChild(minBtn);
+    // Animate bars on restore
+    var win = document.getElementById(winId);
+    if (win) animateBars(win);
   }
 
 </script>
